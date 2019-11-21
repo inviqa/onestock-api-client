@@ -22,7 +22,8 @@ class OrderExportContext implements Context
 
     public function __construct()
     {
-        $this->application = new Application();
+        $config = new TestConfig();
+        $this->application = new Application($config);
     }
 
     /**

@@ -2,10 +2,25 @@
 
 namespace Inviqa\OneStock;
 
+use Inviqa\OneStock\Order\OrderExporterFactory;
+
 class Application
 {
-    public function exportOrder($argument1)
+    /**
+     * @var Config
+     */
+    private $config;
+
+    private $orderExporter;
+
+    public function __construct(Config $config)
     {
-        // TODO: write logic here
+        $this->config = $config;
+        $this->orderExporter = OrderExporterFactory::createFromConfig($config);
+    }
+
+    public function exportOrder($orderParams)
+    {
+        return $this->orderExporter->export();
     }
 }
