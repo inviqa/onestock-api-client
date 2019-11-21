@@ -3,15 +3,11 @@
 namespace Contexts;
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Inviqa\OneStock\Application;
+use Services\TestConfig;
 use Webmozart\Assert\Assert;
 
-/**
- * Defines application features from the specific context.
- */
 class OrderExportContext implements Context
 {
     private $application;

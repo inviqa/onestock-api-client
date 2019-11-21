@@ -8,6 +8,6 @@ interface Config
     public function username(): string;
     public function password(): string;
     public function siteId(): string;
-    public function ruleSetId(): string;
     public function isTestMode(): bool;
+    public function extraParameters(): array;
 }

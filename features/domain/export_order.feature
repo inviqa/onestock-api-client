@@ -12,4 +12,3 @@ Feature: Exporting order
             | 56      |
         When order 1234 is exported
         Then the export for order 1234 should be successful
-
