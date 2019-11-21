@@ -9,4 +9,5 @@ class TestConfig
     protected $password;
     protected $siteId;
     protected $ruleSetId;
+    protected $testMode;
 }
