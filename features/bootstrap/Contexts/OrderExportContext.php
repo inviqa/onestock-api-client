@@ -6,42 +6,61 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Inviqa\OneStock\Application;
+use Webmozart\Assert\Assert;
 
 /**
  * Defines application features from the specific context.
  */
 class OrderExportContext implements Context
 {
+    private $application;
+
+    private $orders;
+
+    private $response;
+
+    public function __construct()
+    {
+        $this->application = new Application();
+    }
+
     /**
      * @Given the following order has been placed
      */
     public function theFollowingOrderHasBeenPlaced(TableNode $table)
     {
-        throw new PendingException();
+        foreach ($table->getColumnsHash() as $order) {
+            $this->orders[$order['id']] = $order;
+        }
     }
 
     /**
-     * @Given order with id :arg1 contains the following line items
+     * @Given order with id :orderId contains the following line items
      */
-    public function orderWithIdContainsTheFollowingLineItems($arg1, TableNode $table)
+    public function orderWithIdContainsTheFollowingLineItems(string $orderId, TableNode $table)
     {
-        throw new PendingException();
+        if (!isset($this->orders[$orderId])) {
+            throw new \InvalidArgumentException(sprintf('The order %s cannot be found', $orderId));
+        }
+
+        $this->orders[$orderId]['line_items'] = $table->getColumnsHash();
     }
 
     /**
-     * @When order :arg1 is exported
+     * @When order :orderId is exported
      */
-    public function orderIsExported($arg1)
+    public function orderIsExported(string $orderId)
     {
-        throw new PendingException();
+        $this->response = $this->application->exportOrder([]);
     }
 
     /**
-     * @Then the export for order :arg1 should be successful
+     * @Then the export for order :orderId should be successful
      */
-    public function theExportForOrderShouldBeSuccessful($arg1)
+    public function theExportForOrderShouldBeSuccessful(string $orderId)
     {
-        throw new PendingException();
+        Assert::notNull($this->response);
     }
 
 
