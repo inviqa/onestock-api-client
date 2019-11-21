@@ -1,6 +1,9 @@
 {
     "name": "inviqa/onestock-api-client",
     "type": "library",
+    "require": {
+        "php" : "^7.2"
+    },
     "require-dev": {
         "behat/behat": "^3.5",
         "phpspec/phpspec": "^6.0",

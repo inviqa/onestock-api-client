@@ -11,6 +11,8 @@ class OrderExporterFactorySpec extends ObjectBehavior
 {
     function it_creates_an_order_exporter(Config $config)
     {
+        $config->isTestMode()->willReturn(true);
+
         $this::createFromConfig($config)->shouldBeAnInstanceOf(OrderExporter::class);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace spec\Inviqa\OneStock\Order;
 
-use Inviqa\OneStock\Client\ApiClientFactory;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\OrderExporter;
+use Inviqa\OneStock\Order\Request\JsonRequestBuilder;
+use Inviqa\OneStock\Client\ApiClient;
+use Inviqa\OneStock\Response\ResponseParser;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -12,8 +14,31 @@ use PhpSpec\ObjectBehavior;
  */
 class OrderExporterSpec extends ObjectBehavior
 {
-    function it_can_export_an_order()
+    function let(
+        JsonRequestBuilder $jsonRequestBuilder,
+        ApiClient $apiClient,
+        ResponseParser $responseParser
+    )
     {
-        $this->export()->shouldHaveType(OneStockResponse::class);
+        $this->beConstructedWith($jsonRequestBuilder, $apiClient, $responseParser);
     }
+
+    function it_delegates_order_exporting(
+        JsonRequestBuilder $jsonRequestBuilder,
+        ApiClient $apiClient,
+        ResponseParser $responseParser,
+        OneStockResponse $response
+    )
+    {
+        $orderParams = ['id' => '123'];
+        $jsonRequest = json_encode($orderParams);
+        $jsonResponse = json_encode(['message' => 'OK']);
+
+        $jsonRequestBuilder->buildRequestFrom($orderParams)->willReturn($jsonRequest);
+        $apiClient->createOrder($jsonRequest)->willReturn($jsonResponse);
+        $responseParser->parse($jsonResponse)->willReturn($response);
+
+        $this->export($orderParams)->shouldReturn($response);
+    }
+
 }

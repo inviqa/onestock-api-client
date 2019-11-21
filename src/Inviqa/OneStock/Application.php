@@ -21,6 +21,6 @@ class Application
 
     public function exportOrder($orderParams)
     {
-        return $this->orderExporter->export();
+        return $this->orderExporter->export($orderParams);
     }
 }

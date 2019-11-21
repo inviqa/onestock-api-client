@@ -2,7 +2,10 @@
 
 namespace spec\Inviqa\OneStock\Client;
 
+use Inviqa\OneStock\Client\ApiClient;
 use Inviqa\OneStock\Client\ApiClientFactory;
+use Inviqa\OneStock\Client\FakeClient;
+use Inviqa\OneStock\Client\HttpClient;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -10,13 +13,9 @@ use PhpSpec\ObjectBehavior;
  */
 class ApiClientFactorySpec extends ObjectBehavior
 {
-    function it_creates_an_api_client()
+    function it_creates_a_client_based_on_test_mode()
     {
-        $this->createApiClient(false);
-    }
-
-    function it_creates_a_fake_api_client()
-    {
-        $this->createApiClient(true);
+        $this->createApiClient(true)->shouldHaveType(FakeClient::class);
+        $this->createApiClient(false)->shouldHaveType(HttpClient::class);
     }
 }
