@@ -1,0 +1,17 @@
+{
+    "name": "inviqa/onestock-api-client",
+    "type": "library",
+    "require-dev": {
+        "behat/behat": "^3.5",
+        "phpspec/phpspec": "^6.0",
+        "guzzlehttp/guzzle": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "": ["src","features/bootstrap"]
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
