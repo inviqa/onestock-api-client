@@ -8,7 +8,7 @@ class TestConfig implements Config
 {
     public function endpoint(): string
     {
-        return '';
+        return 'https://api-qualif.onestock-retail.com/';
     }
 
     public function username(): string
@@ -23,7 +23,7 @@ class TestConfig implements Config
 
     public function siteId(): string
     {
-        return '';
+        return 's100';
     }
 
     public function isTestMode(): bool

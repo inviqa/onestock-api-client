@@ -4,6 +4,7 @@ namespace spec\Inviqa\OneStock\Order;
 
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\OrderExporter;
+use Inviqa\OneStock\Order\Request\JsonRequest;
 use Inviqa\OneStock\Order\Request\JsonRequestBuilder;
 use Inviqa\OneStock\Client\ApiClient;
 use Inviqa\OneStock\Response\ResponseParser;
@@ -16,27 +17,23 @@ class OrderExporterSpec extends ObjectBehavior
 {
     function let(
         JsonRequestBuilder $jsonRequestBuilder,
-        ApiClient $apiClient,
-        ResponseParser $responseParser
+        ApiClient $apiClient
     )
     {
-        $this->beConstructedWith($jsonRequestBuilder, $apiClient, $responseParser);
+        $this->beConstructedWith($jsonRequestBuilder, $apiClient);
     }
 
     function it_delegates_order_exporting(
         JsonRequestBuilder $jsonRequestBuilder,
         ApiClient $apiClient,
-        ResponseParser $responseParser,
-        OneStockResponse $response
+        JsonRequest $jsonRequest
     )
     {
         $orderParams = ['id' => '123'];
-        $jsonRequest = json_encode($orderParams);
-        $jsonResponse = json_encode(['message' => 'OK']);
+        $response = new OneStockResponse(json_encode(['id' => '123']));
 
         $jsonRequestBuilder->buildRequestFrom($orderParams)->willReturn($jsonRequest);
-        $apiClient->createOrder($jsonRequest)->willReturn($jsonResponse);
-        $responseParser->parse($jsonResponse)->willReturn($response);
+        $apiClient->createOrder($jsonRequest)->willReturn($response);
 
         $this->export($orderParams)->shouldReturn($response);
     }
