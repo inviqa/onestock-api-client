@@ -9,6 +9,7 @@ pipeline {
             steps {
                 sh 'composer install'
                 sh 'bin/phpspec run'
+                sh 'bin/behat'
             }
         }
     }
