@@ -1,7 +1,9 @@
 pipeline {
     agent {
-        label "my127ws"
-        docker { image 'php:7.2' }
+        docker {
+            label "my127ws"
+            image 'php:7.2'
+        }
     }
     stages {
         stage('Prepare') {
