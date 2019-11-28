@@ -6,9 +6,6 @@ use Inviqa\OneStock\Order\OrderExporterFactory;
 
 class Application
 {
-    /**
-     * @var Config
-     */
     private $config;
 
     private $orderExporter;

@@ -44,20 +44,45 @@ class OrderExportContext implements Context
         $this->orders[$orderId]['line_items'] = $table->getColumnsHash();
     }
 
+
+    /**
+     * @Given order with id :orderId is delivered to the following address
+     */
+    public function orderWithIdIsDeliveredToTheFollowingAddress(string $orderId, TableNode $table)
+    {
+        $this->orders[$orderId]['shipping_address'] = $table->getColumnsHash()[0];
+    }
+
+    /**
+     * @Given the order :orderId has the following payment
+     */
+    public function theOrderHasTheFollowingPayment(string $orderId, TableNode $table)
+    {
+        $this->orders[$orderId]['payment'] = $table->getColumnsHash()[0];
+    }
+
+    /**
+     * @Given order with id :orderId has the following billing address
+     */
+    public function orderWithIdHasTheFollowingBillingAddress(string $orderId, TableNode $table)
+    {
+        $this->orders[$orderId]['billing_address'] = $table->getColumnsHash()[0];
+    }
+
     /**
      * @When order :orderId is exported
      */
     public function orderIsExported(string $orderId)
     {
-        $this->response = $this->application->exportOrder([]);
+        $this->response = $this->application->exportOrder($this->orders[$orderId]);
     }
-
     /**
      * @Then the export for order :orderId should be successful
      */
     public function theExportForOrderShouldBeSuccessful(string $orderId)
     {
         Assert::notNull($this->response);
+        Assert::true($this->response->isSuccess());
     }
 
 

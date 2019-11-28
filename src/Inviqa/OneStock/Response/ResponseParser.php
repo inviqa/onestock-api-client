@@ -6,7 +6,8 @@ use Inviqa\OneStock\OneStockResponse;
 
 class ResponseParser
 {
-    public function parse($argument1) {
-        return new OneStockResponse();
+    public function parse(string $response)
+    {
+        return new OneStockResponse($response);
     }
 }
