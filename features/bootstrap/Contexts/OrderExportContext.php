@@ -50,7 +50,7 @@ class OrderExportContext implements Context
      */
     public function orderWithIdIsDeliveredToTheFollowingAddress(string $orderId, TableNode $table)
     {
-        $this->orders[$orderId]['shipping_address'] = $table->getColumnsHash()[0];
+        $this->orders[$orderId] += $table->getColumnsHash()[0];
     }
 
     /**
@@ -58,7 +58,7 @@ class OrderExportContext implements Context
      */
     public function theOrderHasTheFollowingPayment(string $orderId, TableNode $table)
     {
-        $this->orders[$orderId]['payment'] = $table->getColumnsHash()[0];
+        $this->orders[$orderId] += $table->getColumnsHash()[0];
     }
 
     /**
@@ -66,7 +66,7 @@ class OrderExportContext implements Context
      */
     public function orderWithIdHasTheFollowingBillingAddress(string $orderId, TableNode $table)
     {
-        $this->orders[$orderId]['billing_address'] = $table->getColumnsHash()[0];
+        $this->orders[$orderId] += $table->getColumnsHash()[0];
     }
 
     /**
