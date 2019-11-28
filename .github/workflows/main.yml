@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: php-actions/composer@master # or alternative dependency management
+    - name: phpspec
+      uses: php-actions/phpspec@master
