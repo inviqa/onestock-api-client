@@ -21,7 +21,6 @@ class OrderSanitizer
         'shipping_city',
         'shipping_postcode',
         'shipping_country_code',
-        'billing_amount',
         'billing_address_line_1',
         'billing_city',
         'billing_postcode',
@@ -33,6 +32,7 @@ class OrderSanitizer
         'ruleset_id' => '',
         'shipping_address_line_2' => '',
         'billing_address_line_2' => '',
+        'types' => ['ffs'],
     ];
 
     private $defaultLineItemsParams = [
@@ -62,9 +62,7 @@ class OrderSanitizer
     private function validateAttribute(string $key, $params, string $fieldCustomMessage = ""): void
     {
         if (!isset($params[$key]) || $params[$key] === "") {
-            throw new RequestParameterException(sprintf(
-                "The %s %sfield is required, but got empty value instead.", $key, $fieldCustomMessage
-            ));
+            throw new RequestParameterException(sprintf("The %s %sfield is required, but got empty value instead.", $key, $fieldCustomMessage));
         }
     }
 }

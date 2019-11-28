@@ -16,13 +16,6 @@ class Order
     /**
      * Order constructor.
      *
-     * @param string     $id
-     * @param array      $types
-     * @param string     $ruleset_id
-     * @param string     $sales_channel
-     * @param Delivery   $delivery
-     * @param Payment    $payment
-     * @param Customer   $customer
      * @param LineItem[] $line_items
      */
     public function __construct(
