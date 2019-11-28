@@ -12,9 +12,8 @@ class OrderExporterFactory
     public static function createFromConfig(Config $config)
     {
         return new OrderExporter(
-            new JsonRequestBuilder($config, new OrderConverter()),
-            ApiClientFactory::createApiClient($config),
-            new ResponseParser()
+            new JsonRequestBuilder($config, new OrderSanitizer(), new OrderConverter()),
+            ApiClientFactory::createApiClient($config)
         );
     }
 }

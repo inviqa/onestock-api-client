@@ -15,47 +15,11 @@ use Inviqa\OneStock\Entity\Regions;
 
 class OrderConverter
 {
-    private $defaultParams = [
-        'id' => '',
-        'ruleset_id' => '',
-        'sales_channel' => '',
-        'title' => '',
-        'first_name' => '',
-        'last_name' => '',
-        'phone_number' => '',
-        'email' => '',
-        'payment' => '',
-        'currency' => '',
-        'price' => 0.0,
-        'shipping_amount' => 0.0,
-        'shipping_address_line_1' => '',
-        'shipping_address_line_2' => '',
-        'shipping_city' => '',
-        'shipping_postcode' => '',
-        'shipping_country_code' => '',
-        'billing_amount' => '',
-        'billing_address_line_1' => '',
-        'billing_address_line_2' => '',
-        'billing_city' => '',
-        'billing_postcode' => '',
-        'billing_country_code' => '',
-        'line_items' => [],
-    ];
-
-    private $defaultLineItemsParams = [
-        'item_id' => '',
-        'item_price' => '',
-    ];
-
     public function convert(array $orderParams)
     {
-        $orderParams += $this->defaultParams;
-
-        $defaultTypes = ['ffs'];
-
         return new Order(
             $orderParams['id'],
-            $defaultTypes,
+            $orderParams['type'],
             $orderParams['ruleset_id'],
             $orderParams['sales_channel'],
             $this->createDeliveryFromOrderParams($orderParams),
