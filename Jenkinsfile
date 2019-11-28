@@ -9,7 +9,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'composer install'
-                sh 'vendor/bin/phpspec run'
+                sh 'bin/phpspec run'
             }
         }
     }
