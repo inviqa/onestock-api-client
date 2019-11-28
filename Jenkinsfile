@@ -1,7 +1,6 @@
 pipeline {
     agent {
         docker {
-            label "my127ws"
             image 'my127/php:7.2-fpm-stretch-console'
         }
     }
