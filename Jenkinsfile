@@ -2,17 +2,13 @@ pipeline {
     agent {
         docker {
             label "my127ws"
-            image 'php:7.2'
+            image 'my127/php:7.2-fpm-stretch-console'
         }
     }
     stages {
-        stage('Prepare') {
+        stage('Test') {
             steps {
                 sh 'composer install'
-            }
-        }
-	stage('Test') {
-            steps {
                 sh 'vendor/bin/phpspec run'
             }
         }
