@@ -2,6 +2,7 @@
 
 namespace Inviqa\OneStock;
 
+use Exception;
 use Inviqa\OneStock\Order\OrderExporterFactory;
 
 class Application
@@ -16,8 +17,19 @@ class Application
         $this->orderExporter = OrderExporterFactory::createFromConfig($config);
     }
 
+    /**
+     * @param $orderParams
+     *
+     * @throws OneStockException
+     *
+     * @return OneStockResponse
+     */
     public function exportOrder($orderParams)
     {
-        return $this->orderExporter->export($orderParams);
+        try {
+            return $this->orderExporter->export($orderParams);
+        } catch (Exception $e) {
+            throw OneStockException::createFromException($e);
+        }
     }
 }

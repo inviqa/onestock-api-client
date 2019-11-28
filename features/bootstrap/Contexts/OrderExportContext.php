@@ -3,8 +3,10 @@
 namespace Contexts;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Inviqa\OneStock\Application;
+use Inviqa\OneStock\OneStockException;
 use Services\TestConfig;
 use Webmozart\Assert\Assert;
 
@@ -15,6 +17,8 @@ class OrderExportContext implements Context
     private $orders;
 
     private $response;
+
+    private $exception;
 
     public function __construct()
     {
@@ -70,12 +74,45 @@ class OrderExportContext implements Context
     }
 
     /**
+     * @Given the order :orderId does not have payment data
+     */
+    public function theOrderDoesNotHavePaymentData($orderId)
+    {
+        unset($this->orders[$orderId]['price']);
+        unset($this->orders[$orderId]['currency']);
+        unset($this->orders[$orderId]['shipping_amount']);
+    }
+
+    /**
+     * @Then /^I should get an error with the content:$/
+     */
+    public function iShouldGetAnErrorWithTheContent(PyStringNode $string)
+    {
+        Assert::notNull($this->exception);
+        Assert::eq($this->exception->getMessage(), $string->getRaw());
+    }
+
+    /**
+     * @Then I should get a :exceptionClass exception with the error
+     */
+    public function iShouldGetAWithTheError($exceptionClass)
+    {
+        Assert::notNull($this->exception);
+        Assert::subclassOf($this->exception, OneStockException::class);
+    }
+
+    /**
      * @When order :orderId is exported
      */
     public function orderIsExported(string $orderId)
     {
-        $this->response = $this->application->exportOrder($this->orders[$orderId]);
+        try {
+            $this->response = $this->application->exportOrder($this->orders[$orderId]);
+        } catch (OneStockException $e) {
+            $this->exception = $e;
+        }
     }
+
     /**
      * @Then the export for order :orderId should be successful
      */
