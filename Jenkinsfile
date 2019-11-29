@@ -15,7 +15,7 @@ pipeline {
                   },
                   b: {
                     sh 'bin/behat'
-                  }
+                  },
                   c: {
                     sh 'PHP_CS_FIXER_FUTURE_MODE=1 bin/php-cs-fixer --diff --using-cache=no --dry-run -v fix'
                   }
