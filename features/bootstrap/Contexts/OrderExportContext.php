@@ -6,6 +6,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Inviqa\OneStock\Application;
+use Inviqa\OneStock\Client\FakeClient;
 use Inviqa\OneStock\OneStockException;
 use Services\TestConfig;
 use Webmozart\Assert\Assert;
@@ -81,6 +82,14 @@ class OrderExportContext implements Context
         unset($this->orders[$orderId]['price']);
         unset($this->orders[$orderId]['currency']);
         unset($this->orders[$orderId]['shipping_amount']);
+    }
+
+    /**
+     * @Given the order :orderId already exists in OneStockApi
+     */
+    public function theOrderAlreadyExistsInOneStockApi($orderId)
+    {
+        $this->orders[$orderId]['last_name'] = FakeClient::ORDER_ALREADY_EXISTS_SCENARIO;
     }
 
     /**
