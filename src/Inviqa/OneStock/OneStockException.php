@@ -18,6 +18,7 @@ class OneStockException extends Exception
             case RequestParameterException::class:
                 $code = self::PARAMETER_VALIDATION_ERROR;
                 $message = sprintf("There is an error in the given parameters: %s", $e->getMessage());
+
                 break;
         }
 
