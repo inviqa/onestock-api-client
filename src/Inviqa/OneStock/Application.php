@@ -17,14 +17,7 @@ class Application
         $this->orderExporter = OrderExporterFactory::createFromConfig($config);
     }
 
-    /**
-     * @param $orderParams
-     *
-     * @throws OneStockException
-     *
-     * @return OneStockResponse
-     */
-    public function exportOrder($orderParams)
+    public function exportOrder(array $orderParams): OneStockResponse
     {
         try {
             return $this->orderExporter->export($orderParams);
