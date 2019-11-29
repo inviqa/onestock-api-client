@@ -13,11 +13,6 @@ class Order
     public $customer;
     public $line_items;
 
-    /**
-     * Order constructor.
-     *
-     * @param LineItem[] $line_items
-     */
     public function __construct(
         string $id,
         array $types,
