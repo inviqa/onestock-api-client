@@ -8,6 +8,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'composer install'
+
                 parallel(
                   a: {
                     sh 'bin/phpspec run'

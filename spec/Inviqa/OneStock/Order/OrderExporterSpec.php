@@ -7,7 +7,6 @@ use Inviqa\OneStock\Order\OrderExporter;
 use Inviqa\OneStock\Order\Request\JsonRequest;
 use Inviqa\OneStock\Order\Request\JsonRequestBuilder;
 use Inviqa\OneStock\Client\ApiClient;
-use Inviqa\OneStock\Response\ResponseParser;
 use PhpSpec\ObjectBehavior;
 
 /**
