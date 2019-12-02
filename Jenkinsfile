@@ -5,12 +5,15 @@ pipeline {
         }
     }
     stages {
+        stage('Install') {
+            steps { sh 'composer install' }
+        }
+
         stage('Test') {
-            steps {
-                sh 'composer install'
-                sh 'bin/phpspec run'
-                sh 'bin/behat'
-                sh 'PHP_CS_FIXER_FUTURE_MODE=1 bin/php-cs-fixer --diff --using-cache=no --dry-run -v fix'
+            parallel {
+                stage('unit')       { steps { sh 'bin/phpspec run' } }
+                stage('acceptance') { steps { sh 'bin/behat' } }
+                stage('standards')  { steps { sh 'PHP_CS_FIXER_FUTURE_MODE=1 bin/php-cs-fixer --diff --using-cache=no --dry-run -v fix' } }
             }
         }
     }
