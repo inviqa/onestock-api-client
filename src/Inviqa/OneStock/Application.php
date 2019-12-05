@@ -20,9 +20,7 @@ class Application
     public function exportOrder(array $orderParams): OneStockResponse
     {
         try {
-            $response = $this->orderExporter->export($orderParams);
-
-            return $response;
+            return $this->orderExporter->export($orderParams);
         } catch (Exception $e) {
             throw OneStockException::createFromException($e);
         }

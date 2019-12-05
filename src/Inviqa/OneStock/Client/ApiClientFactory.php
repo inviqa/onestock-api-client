@@ -10,7 +10,7 @@ class ApiClientFactory
     public static function createApiClient(Config $config): ApiClient
     {
         if ($config->isTestMode()) {
-            return new FakeClient();
+            return new FakeClient($config);
         }
 
         return new HttpClient(

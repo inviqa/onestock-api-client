@@ -15,6 +15,8 @@ class OrderExportContext implements Context
 {
     private $application;
 
+    private $config;
+
     private $orders;
 
     private $response;
@@ -23,8 +25,8 @@ class OrderExportContext implements Context
 
     public function __construct()
     {
-        $config = new TestConfig();
-        $this->application = new Application($config);
+        $this->config = new TestConfig();
+        $this->application = new Application($this->config);
     }
 
     /**
@@ -89,7 +91,15 @@ class OrderExportContext implements Context
      */
     public function theOrderAlreadyExistsInOneStockApi($orderId)
     {
-        $this->orders[$orderId]['last_name'] = FakeClient::ORDER_ALREADY_EXISTS_SCENARIO;
+        $this->config->registerOrder($orderId);
+    }
+
+    /**
+     * @Given the order export process is erroring via a :error exception
+     */
+    public function theOrderExportProcessIsErroringViaAException(string $error)
+    {
+        $this->config->addError($error);
     }
 
     /**
@@ -130,6 +140,4 @@ class OrderExportContext implements Context
         Assert::notNull($this->response);
         Assert::true($this->response->isSuccess());
     }
-
-
 }
