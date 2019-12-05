@@ -6,6 +6,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Inviqa\OneStock\Application;
+use Inviqa\OneStock\Client\FakeClient;
 use Inviqa\OneStock\OneStockException;
 use Services\TestConfig;
 use Webmozart\Assert\Assert;
@@ -13,6 +14,8 @@ use Webmozart\Assert\Assert;
 class OrderExportContext implements Context
 {
     private $application;
+
+    private $config;
 
     private $orders;
 
@@ -22,8 +25,8 @@ class OrderExportContext implements Context
 
     public function __construct()
     {
-        $config = new TestConfig();
-        $this->application = new Application($config);
+        $this->config = new TestConfig();
+        $this->application = new Application($this->config);
     }
 
     /**
@@ -84,6 +87,22 @@ class OrderExportContext implements Context
     }
 
     /**
+     * @Given the order :orderId already exists in OneStockApi
+     */
+    public function theOrderAlreadyExistsInOneStockApi($orderId)
+    {
+        $this->config->registerOrder($orderId);
+    }
+
+    /**
+     * @Given the order export process is erroring via a :error exception
+     */
+    public function theOrderExportProcessIsErroringViaAException(string $error)
+    {
+        $this->config->addError($error);
+    }
+
+    /**
      * @Then /^I should get an error with the content:$/
      */
     public function iShouldGetAnErrorWithTheContent(PyStringNode $string)
@@ -121,6 +140,4 @@ class OrderExportContext implements Context
         Assert::notNull($this->response);
         Assert::true($this->response->isSuccess());
     }
-
-
 }

@@ -6,6 +6,11 @@ use Inviqa\OneStock\Config;
 
 class TestConfig implements Config
 {
+    private $extraParameters = [
+        'error' => '',
+        'testOrders' => [],
+    ];
+
     public function endpoint(): string
     {
         return 'https://api-qualif.onestock-retail.com/';
@@ -33,6 +38,16 @@ class TestConfig implements Config
 
     public function extraParameters(): array
     {
-        return [];
+        return $this->extraParameters;
+    }
+
+    public function registerOrder($orderId)
+    {
+        $this->extraParameters['testOrders'][] = $orderId;
+    }
+
+    public function addError(string $error)
+    {
+        $this->extraParameters['error'] = $error;
     }
 }
