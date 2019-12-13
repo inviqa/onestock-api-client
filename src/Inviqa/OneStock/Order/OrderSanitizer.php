@@ -9,7 +9,6 @@ class OrderSanitizer
     private $requiredFields = [
         'id',
         'sales_channel',
-        'title',
         'first_name',
         'last_name',
         'phone_number',
@@ -29,6 +28,7 @@ class OrderSanitizer
     ];
 
     private $defaultParams = [
+        'title' => '',
         'ruleset_id' => '',
         'shipping_address_line_2' => '',
         'billing_address_line_2' => '',
