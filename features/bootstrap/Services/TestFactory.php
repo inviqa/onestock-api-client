@@ -46,6 +46,7 @@ class TestFactory
                     'item_price' => 12.0,
                 ]
             ],
+            'endpoint_id' => '',
         ];
     }
 

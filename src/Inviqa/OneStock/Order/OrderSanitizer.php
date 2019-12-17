@@ -33,6 +33,7 @@ class OrderSanitizer
         'shipping_address_line_2' => '',
         'billing_address_line_2' => '',
         'types' => ['ffs'],
+        'endpoint_id' => '',
     ];
 
     private $defaultLineItemsParams = [
