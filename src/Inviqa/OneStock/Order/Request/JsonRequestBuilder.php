@@ -52,7 +52,7 @@ class JsonRequestBuilder
     {
         $address = $this->createAddressFromOrderAddress('shipping', $orderParams);
 
-        return new Delivery(new Destination($address));
+        return new Delivery(new Destination($address, $orderParams['endpoint_id']));
     }
 
     private function createCustomerFromOrderParams(array $orderParams)
