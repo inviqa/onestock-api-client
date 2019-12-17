@@ -29,6 +29,6 @@ class OrderExporter
             throw ApiException::createFromJsonResponse($response);
         }
 
-        return $this->apiClient->createOrder($request);
+        return $response;
     }
 }
