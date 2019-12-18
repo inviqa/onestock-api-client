@@ -3,6 +3,7 @@
 namespace Inviqa\OneStock\Client;
 
 use Inviqa\OneStock\Config;
+use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\Request\JsonRequest;
 use RuntimeException;
@@ -57,5 +58,10 @@ class FakeClient implements ApiClient
         }
 
         return new OneStockResponse(json_encode(['id' => $request->order->id]));
+    }
+
+    public function updateLineItems(LineItemUpdateRequest $request): OneStockResponse
+    {
+        return new OneStockResponse(json_encode(['id' => true]));
     }
 }
