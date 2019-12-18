@@ -6,7 +6,10 @@ pipeline {
     }
     stages {
         stage('Install') {
-            steps { sh 'composer install' }
+            steps { 
+                sh 'rm -f composer.lock' 
+                sh 'composer install'
+            }
         }
 
         stage('Test') {
