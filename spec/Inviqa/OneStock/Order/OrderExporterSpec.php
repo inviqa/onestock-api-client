@@ -33,7 +33,7 @@ class OrderExporterSpec extends ObjectBehavior
         $response = new OneStockResponse(json_encode(['id' => '123']));
 
         $jsonRequestBuilder->buildRequestFrom($orderParams)->willReturn($jsonRequest);
-        $apiClient->createOrder($jsonRequest)->willReturn($response);
+        $apiClient->createOrder($jsonRequest)->shouldBeCalledOnce()->willReturn($response);
 
         $this->export($orderParams)->shouldReturn($response);
     }

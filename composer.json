@@ -11,12 +11,24 @@
         "behat/behat": "^3.5",
         "phpspec/phpspec": "^6.0",
         "webmozart/assert": "^1.5",
-        "friendsofphp/php-cs-fixer": "^2.16"
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.12"
     },
     "autoload": {
         "psr-4": {
             "": ["src","features/bootstrap"]
         }
+    },
+    "scripts": {
+        "integrate": [
+            "@php-cs-fixer",
+            "@phpspec",
+            "@behat"
+        ],
+        "phpspec": "bin/phpspec run --ansi",
+        "behat": "bin/behat --colors",
+        "php-cs-fixer": "PHP_CS_FIXER_FUTURE_MODE=1 bin/php-cs-fixer --ansi --diff --using-cache=no -v fix",
+        "phpstan": "./bin/phpstan analyse src --level=5"
     },
     "config": {
         "bin-dir": "bin"

@@ -15,6 +15,8 @@ use Inviqa\OneStock\Entity\Regions;
 
 class TestFactory
 {
+    private const EXAMPLE_ENDPOINT_ID = '400';
+
     public static function fullOrderParams(): array
     {
         return [
@@ -46,6 +48,7 @@ class TestFactory
                     'item_price' => 12.0,
                 ]
             ],
+            'endpoint_id' => self::EXAMPLE_ENDPOINT_ID,
         ];
     }
 
@@ -83,7 +86,7 @@ class TestFactory
             ['ffs'],
             '1',
             '2',
-            new Delivery(new Destination($address)),
+            new Delivery(new Destination($address, self::EXAMPLE_ENDPOINT_ID)),
             new Payment('GBP', 12.0, 5.0, $address),
             $customer,
             [new LineItem('1', new ItemPayment(12.0))]
