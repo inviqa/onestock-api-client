@@ -10,7 +10,8 @@ class LineUpdaterFactory
     public static function create(Config $config, ApiClient $client): LineItemUpdater
     {
         return new LineItemUpdater(
-            $client
+            $client,
+            $config->siteId()
         );
     }
 }

@@ -13,14 +13,23 @@ class LineItemUpdater
      */
     private $apiClinet;
 
-    public function __construct(ApiClient $apiClinet)
+    /**
+     * @var string
+     */
+    private $siteId;
+
+    public function __construct(ApiClient $apiClinet, string $siteId)
     {
         $this->apiClinet = $apiClinet;
+        $this->siteId = $siteId;
     }
 
     public function update(array $lineItemUpdateParameters): OneStockResponse
     {
-        $request = Invoke::new(LineItemUpdateRequest::class, $lineItemUpdateParameters);
+        $request = Invoke::new(LineItemUpdateRequest::class, array_merge([
+            'site_id' => $this->siteId,
+        ], $lineItemUpdateParameters));
+
         return $this->apiClinet->updateLineItems($request);
     }
 }
