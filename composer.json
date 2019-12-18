@@ -24,7 +24,8 @@
         "integrate": [
             "@php-cs-fixer",
             "@phpspec",
-            "@behat"
+            "@behat",
+            "@phpstan"
         ],
         "phpspec": "bin/phpspec run --ansi",
         "behat": "bin/behat --colors",
