@@ -20,10 +20,13 @@
     },
     "scripts": {
         "integrate": [
-            "./bin/phpspec run --ansi",
-            "./bin/behat --colors",
-            "PHP_CS_FIXER_FUTURE_MODE=1 ./bin/php-cs-fixer --ansi --diff --using-cache=no --dry-run -v fix"
-        ]
+            "@php-cs-fixer",
+            "@phpspec",
+            "@behat"
+        ],
+        "phpspec": "bin/phpspec run --ansi",
+        "behat": "bin/behat --colors",
+        "php-cs-fixer": "PHP_CS_FIXER_FUTURE_MODE=1 bin/php-cs-fixer --ansi --diff --using-cache=no -v fix"
     },
     "config": {
         "bin-dir": "bin"
