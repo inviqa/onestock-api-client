@@ -11,8 +11,9 @@ pipeline {
 
         stage('Test') {
             parallel {
-                stage('unit')       { steps { sh 'bin/phpspec run' } }
-                stage('acceptance') { steps { sh 'bin/behat' } }
+                stage('unit')       { steps { sh 'composer phpspec' } }
+                stage('acceptance') { steps { sh 'composer behat' } }
+                stage('static-analysis') { steps { sh 'composer phpstan' } }
                 stage('standards')  { steps { sh 'PHP_CS_FIXER_FUTURE_MODE=1 bin/php-cs-fixer --diff --using-cache=no --dry-run -v fix' } }
             }
         }
