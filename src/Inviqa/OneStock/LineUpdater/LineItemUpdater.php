@@ -26,9 +26,10 @@ class LineItemUpdater
 
     public function update(array $lineItemUpdateParameters): OneStockResponse
     {
-        $request = Invoke::new(LineItemUpdateRequest::class, array_merge([
+        $request = Invoke::new(LineItemUpdateRequest::class, [
             'site_id' => $this->siteId,
-        ], $lineItemUpdateParameters));
+            'items' => $lineItemUpdateParameters,
+        ]);
 
         return $this->apiClinet->updateLineItems($request);
     }

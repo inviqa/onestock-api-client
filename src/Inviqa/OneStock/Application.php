@@ -35,11 +35,12 @@ class Application
         }
     }
 
-    public function updateLineItems(array $lineItemUpdateParameters)
+    public function updateLineItems(array $lineItemUpdateParameters): OneStockResponse
     {
         try {
             return $this->lineItemsUpdater->update($lineItemUpdateParameters);
         } catch (Exception $e) {
+
             throw OneStockException::createFromException($e);
         }
     }

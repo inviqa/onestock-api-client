@@ -3,3 +3,4 @@ default:
         domain:
             contexts:
                 - Contexts\OrderExportContext
+                - Contexts\LineItemUpdateContext
