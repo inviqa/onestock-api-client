@@ -9,7 +9,8 @@ Feature: Exporting line item updates
             {
                 "item_id": "1234",
                 "payment": {
-                    "price": "99.99"
+                    "price": "99.99",
+                    "previous_price": "10.99"
                 }
             }
             """

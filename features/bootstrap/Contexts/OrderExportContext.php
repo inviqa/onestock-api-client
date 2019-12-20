@@ -6,8 +6,8 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Inviqa\OneStock\Application;
-use Inviqa\OneStock\Client\FakeClient;
 use Inviqa\OneStock\OneStockException;
+use Services\HttpMock;
 use Services\TestConfig;
 use Webmozart\Assert\Assert;
 
@@ -23,10 +23,16 @@ class OrderExportContext implements Context
 
     private $exception;
 
+    /**
+     * @var HttpMock
+     */
+    private $httpMock;
+
     public function __construct()
     {
+        $this->httpMock = new HttpMock();
         $this->config = new TestConfig();
-        $this->application = new Application($this->config);
+        $this->application = new Application($this->config, $this->httpMock);
     }
 
     /**
@@ -91,7 +97,7 @@ class OrderExportContext implements Context
      */
     public function theOrderAlreadyExistsInOneStockApi($orderId)
     {
-        $this->config->registerOrder($orderId);
+        $this->httpMock->useMocks('onestock_entity_exist');
     }
 
     /**
@@ -99,6 +105,7 @@ class OrderExportContext implements Context
      */
     public function theOrderExportProcessIsErroringViaAException(string $error)
     {
+        $this->httpMock->disable();
         $this->config->addError($error);
     }
 

@@ -8,6 +8,7 @@ use Behat\Behat\Context\Context;
 use Exception;
 use Inviqa\OneStock\Application;
 use Inviqa\OneStock\OneStockException;
+use Services\HttpMock;
 use Services\TestConfig;
 use Webmozart\Assert\Assert;
 
@@ -32,7 +33,7 @@ class LineItemUpdateContext implements Context
 
     public function __construct()
     {
-        $this->application = new Application(new TestConfig());
+        $this->application = new Application(new TestConfig(), new HttpMock());
     }
 
     /**

@@ -11,7 +11,7 @@ class LineItemUpdater
     /**
      * @var ApiClient
      */
-    private $apiClinet;
+    private $apiClient;
 
     /**
      * @var string
@@ -20,7 +20,7 @@ class LineItemUpdater
 
     public function __construct(ApiClient $apiClinet, string $siteId)
     {
-        $this->apiClinet = $apiClinet;
+        $this->apiClient = $apiClinet;
         $this->siteId = $siteId;
     }
 
@@ -31,6 +31,6 @@ class LineItemUpdater
             'items' => $lineItemUpdateParameters,
         ]);
 
-        return $this->apiClinet->updateLineItems($request);
+        return $this->apiClient->updateLineItems($request);
     }
 }

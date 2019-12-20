@@ -18,12 +18,12 @@ class TestConfig implements Config
 
     public function username(): string
     {
-        return '';
+        return 'foo';
     }
 
     public function password(): string
     {
-        return '';
+        return 'bar';
     }
 
     public function siteId(): string
@@ -39,11 +39,6 @@ class TestConfig implements Config
     public function extraParameters(): array
     {
         return $this->extraParameters;
-    }
-
-    public function registerOrder($orderId)
-    {
-        $this->extraParameters['testOrders'][] = $orderId;
     }
 
     public function addError(string $error)

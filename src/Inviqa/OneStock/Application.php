@@ -7,11 +7,10 @@ use Inviqa\OneStock\Client\ApiClientFactory;
 use Inviqa\OneStock\LineUpdater\LineItemUpdater;
 use Inviqa\OneStock\LineUpdater\LineUpdaterFactory;
 use Inviqa\OneStock\Order\OrderExporterFactory;
+use Services\HttpMock;
 
 class Application
 {
-    private $config;
-
     private $orderExporter;
 
     /**
@@ -19,8 +18,11 @@ class Application
      */
     private $lineItemsUpdater;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, HttpMock $httpMock)
     {
+        if ($config->isTestMode()) {
+            $httpMock->enable();
+        }
         $client = ApiClientFactory::createApiClient($config);
         $this->orderExporter = OrderExporterFactory::createFromConfig($config, $client);
         $this->lineItemsUpdater = LineUpdaterFactory::create($config, $client);

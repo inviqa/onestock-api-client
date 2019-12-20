@@ -8,17 +8,34 @@ class ItemPayment
 {
     public $price;
 
-    public function __construct($price)
+    private $previousPrice;
+
+    public function __construct($price, $previous_price = null)
     {
         $this->setPrice($price);
+        $this->setPreviousPrice($previous_price);
     }
 
-    private function setPrice($price): void
+    private function setPrice($value): void
     {
-        if (!is_numeric($price)) {
-            throw new InvalidArgumentException(sprintf('Expected to get numeric value, but got "%s"', $price));
+        $this->assertNumeric($value);
+
+        $this->price = $value;
+    }
+
+    private function setPreviousPrice($value): void
+    {
+        if (!is_null($value)) {
+            $this->assertNumeric($value);
         }
 
-        $this->price = $price;
+        $this->previousPrice = $value;
+    }
+
+    private function assertNumeric($value): void
+    {
+        if (!is_numeric($value)) {
+            throw new InvalidArgumentException(sprintf('Expected to get numeric value, but got "%s"', $value));
+        }
     }
 }
