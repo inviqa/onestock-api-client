@@ -97,7 +97,7 @@ class OrderExportContext implements Context
      */
     public function theOrderAlreadyExistsInOneStockApi($orderId)
     {
-        $this->httpMock->useMocks('onestock_entity_exist');
+        $this->httpMock->useMocks(HttpMock::MOCK_ONESTOCK_ENTITY_EXIST);
     }
 
     /**
