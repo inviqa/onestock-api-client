@@ -42,7 +42,6 @@ class Application
         try {
             return $this->lineItemsUpdater->update($lineItemUpdateParameters);
         } catch (Exception $e) {
-
             throw OneStockException::createFromException($e);
         }
     }

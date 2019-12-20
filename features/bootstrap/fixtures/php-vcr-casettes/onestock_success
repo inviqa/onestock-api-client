@@ -11,7 +11,7 @@
             Auth-User: foo
             Auth-Password: bar
             Accept: null
-        body: '{"site_id":"s100","items":[{"item_id":"1234","payment":{"price":99.99}}]}'
+        body: '{"site_id":"s100","items":[{"item_id":"1234","payment":{"price":99.99,"previous_price":"10.99","discount_absolute":"19.99","discount_percentage":"20"}}]}'
     response:
         status:
             http_version: '1.1'
@@ -19,11 +19,12 @@
             message: OK
         headers:
             Content-Type: application/json
-            Request-Id: 5dfcaad65ae7fc000125b456
+            Request-Id: 5dfcd5015ae7fc000125c569
             Vary: Origin
-            Date: 'Fri, 20 Dec 2019 11:04:54 GMT'
-            Content-Length: '0'
-        body: ''
+            Date: 'Fri, 20 Dec 2019 14:04:49 GMT'
+            Content-Length: '65'
+        body: '{"id":"1234","code":"1234"}'
+
 -
     request:
         method: POST

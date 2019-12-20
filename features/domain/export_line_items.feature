@@ -10,7 +10,9 @@ Feature: Exporting line item updates
                 "item_id": "1234",
                 "payment": {
                     "price": "99.99",
-                    "previous_price": "10.99"
+                    "previous_price": "10.99",
+                    "discount_absolute": "19.99",
+                    "discount_percentage": "20"
                 }
             }
             """

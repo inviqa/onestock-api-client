@@ -61,6 +61,13 @@ class LineItemUpdateContext implements Context
      */
     public function itShouldBeSuccessful()
     {
+        if (!is_null($this->lastApiResponse)) {
+            Assert::true(
+                $this->lastApiResponse->isSuccess(),
+                'Error in API response: '.$this->lastApiResponse->getErrorMessage()
+            );
+        }
+
         if (!$this->lastApiException instanceof Exception) {
             return;
         }
