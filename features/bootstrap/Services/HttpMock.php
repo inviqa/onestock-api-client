@@ -6,10 +6,20 @@ use VCR\VCR;
 
 class HttpMock
 {
+    /**
+     * @var string
+     */
+    private $cassettePath;
+
+    public function __construct(string $cassettePath)
+    {
+        $this->cassettePath = $cassettePath;
+    }
+
     public function enable(): void
     {
         VCR::configure()
-           ->setCassettePath('features/bootstrap/fixtures/php-vcr-casettes')
+           ->setCassettePath($this->cassettePath)
            ->setWhiteList(array('vendor/guzzle'))
            ->enableLibraryHooks(array('curl'));
         VCR::turnOn();

@@ -28,9 +28,9 @@ class OrderExportContext implements Context
      */
     private $httpMock;
 
-    public function __construct()
+    public function __construct(string $cassettePath)
     {
-        $this->httpMock = new HttpMock();
+        $this->httpMock = new HttpMock($cassettePath);
         $this->config = new TestConfig();
         $this->application = new Application($this->config, $this->httpMock);
     }

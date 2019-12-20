@@ -31,9 +31,9 @@ class LineItemUpdateContext implements Context
      */
     private $lastApiException;
 
-    public function __construct()
+    public function __construct(string $cassettePath)
     {
-        $this->application = new Application(new TestConfig(), new HttpMock());
+        $this->application = new Application(new TestConfig(), new HttpMock($cassettePath));
     }
 
     /**
