@@ -3,8 +3,10 @@
 namespace Inviqa\OneStock\LineUpdater;
 
 use DTL\Invoke\Invoke;
+use Inviqa\OneStock\Entity\ItemDelivery;
 use Inviqa\OneStock\Entity\ItemPayment;
 use Inviqa\OneStock\Entity\LineItem;
+use Inviqa\OneStock\Entity\ShippingCarrier;
 
 class LineItemUpdateRequest
 {
@@ -26,6 +28,13 @@ class LineItemUpdateRequest
                 $item['payment']['price'] = (float) $item['payment']['price'];
             }
             $item['payment'] = Invoke::new(ItemPayment::class, $item['payment']);
+
+            if (isset($item['delivery'])) {
+                if (isset($item['delivery']['carrier'])) {
+                    $item['delivery']['carrier'] = Invoke::new(ShippingCarrier::class, $item['delivery']['carrier']);
+                }
+                $item['delivery'] = Invoke::new(ItemDelivery::class, $item['delivery']);
+            }
 
             return Invoke::new(LineItem::class, $item);
         }, $items);

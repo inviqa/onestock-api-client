@@ -11,7 +11,7 @@
             Auth-User: foo
             Auth-Password: bar
             Accept: null
-        body: '{"site_id":"s100","items":[{"item_id":"1234","payment":{"price":99.99,"previous_price":"10.99","discount_absolute":"19.99","discount_percentage":"20"}}]}'
+        body: '{"site_id":"s100","items":[{"item_id":"1234","payment":{"price":99.99,"previous_price":"10.99","discount_absolute":"19.99","discount_percentage":"20"},"delivery":{"tracking_code":"tracking001","carrier":{"name":"AMCE shipping","option":"CODE_ACME"}}}]}'
     response:
         status:
             http_version: '1.1'
@@ -38,7 +38,7 @@
             Auth-User: foo
             Auth-Password: bar
             Accept: null
-        body: '{"site_id":"s100","order":{"id":"2222","types":["ffs"],"ruleset_id":"test","sales_channel":"test_uk","delivery":{"destination":{"address":{"lines":["test address 1","door 3"],"city":"Paris","zip_code":"123456","regions":{"country":{"code":"FR"}},"contact":{"title":"Mr","first_name":"Joe","last_name":"Bloggs","phone_number":"7989987998","email":"joa.bloggs@inviqa.com"}},"endpoint_id":""}},"payment":{"currency":"EUR","price":100,"shipping_price":7,"address":{"lines":["test address 1","door 3"],"city":"Paris","zip_code":"123456","regions":{"country":{"code":"FR"}},"contact":{"title":"Mr","first_name":"Joe","last_name":"Bloggs","phone_number":"7989987998","email":"joa.bloggs@inviqa.com"}}},"customer":{"title":"Mr","first_name":"Joe","last_name":"Bloggs","phone_number":"7989987998","email":"joa.bloggs@inviqa.com"},"line_items":[{"item_id":"1100722044","payment":{"price":"100"}}]}}'
+        body: '{"site_id":"s100","order":{"id":"2222","types":["ffs"],"ruleset_id":"test","sales_channel":"test_uk","delivery":{"destination":{"address":{"lines":["test address 1","door 3"],"city":"Paris","zip_code":"123456","regions":{"country":{"code":"FR"}},"contact":{"title":"Mr","first_name":"Joe","last_name":"Bloggs","phone_number":"7989987998","email":"joa.bloggs@inviqa.com"}},"endpoint_id":""}},"payment":{"currency":"EUR","price":100,"shipping_price":7,"address":{"lines":["test address 1","door 3"],"city":"Paris","zip_code":"123456","regions":{"country":{"code":"FR"}},"contact":{"title":"Mr","first_name":"Joe","last_name":"Bloggs","phone_number":"7989987998","email":"joa.bloggs@inviqa.com"}}},"customer":{"title":"Mr","first_name":"Joe","last_name":"Bloggs","phone_number":"7989987998","email":"joa.bloggs@inviqa.com"},"line_items":[{"item_id":"1100722044","payment":{"price":"100","previous_price":null,"discount_absolute":null,"discount_percentage":null},"delivery":null}]}}'
     response:
         status:
             http_version: '1.1'

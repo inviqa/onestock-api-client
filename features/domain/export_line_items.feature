@@ -13,6 +13,13 @@ Feature: Exporting line item updates
                     "previous_price": "10.99",
                     "discount_absolute": "19.99",
                     "discount_percentage": "20"
+                },
+                "delivery": {
+                    "tracking_code": "tracking001",
+                    "carrier": {
+                        "name": "AMCE shipping",
+                        "option": "CODE_ACME"
+                    }
                 }
             }
             """
