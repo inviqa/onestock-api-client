@@ -102,15 +102,6 @@ class OrderExportContext implements Context
     }
 
     /**
-     * @Given the order export process is erroring via a :error exception
-     */
-    public function theOrderExportProcessIsErroringViaAException(string $error)
-    {
-        $this->httpMock->disable();
-        $this->config->addError($error);
-    }
-
-    /**
      * @Then /^I should get an error with the content:$/
      */
     public function iShouldGetAnErrorWithTheContent(PyStringNode $string)
