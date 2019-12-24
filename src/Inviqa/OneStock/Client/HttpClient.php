@@ -10,6 +10,7 @@ use Inviqa\OneStock\Order\Request\JsonRequest;
 class HttpClient implements ApiClient
 {
     private $client;
+
     private $authentication;
 
     public function __construct(ClientInterface $client, array $authentication)
@@ -20,27 +21,31 @@ class HttpClient implements ApiClient
 
     public function createOrder(JsonRequest $request): OneStockResponse
     {
-        $response = $this->client->request('POST', 'orders', [
-            'headers' => [
-                'Auth-User' => $this->authentication['username'],
-                'Auth-Password' => $this->authentication['password'],
-            ],
-            'body' => json_encode($request),
-        ]);
+        $response = $this->client->request('POST', 'orders', $this->buildRequest($request));
 
         return new OneStockResponse($response->getBody()->getContents());
     }
 
     public function updateLineItems(LineItemUpdateRequest $request): OneStockResponse
     {
-        $response = $this->client->request('PATCH', 'multi/line_items', [
-            'headers' => [
-                'Auth-User' => $this->authentication['username'],
-                'Auth-Password' => $this->authentication['password'],
-            ],
-            'body' => json_encode($request),
-        ]);
+        $response = $this->client->request('PATCH', 'multi/line_items', $this->buildRequest($request));
 
         return new OneStockResponse($response->getBody()->getContents());
+    }
+
+    private function buildHeaders(): array
+    {
+        return [
+            'Auth-User' => $this->authentication['username'],
+            'Auth-Password' => $this->authentication['password'],
+        ];
+    }
+
+    private function buildRequest(object $request): array
+    {
+        return [
+            'headers' => $this->buildHeaders(),
+            'body' => json_encode($request),
+        ];
     }
 }
