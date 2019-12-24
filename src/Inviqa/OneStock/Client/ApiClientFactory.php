@@ -14,7 +14,6 @@ class ApiClientFactory
             new Client([
                 'base_uri' => $config->endpoint(),
                 RequestOptions::HTTP_ERRORS => false,
-                RequestOptions::CONNECT_TIMEOUT => 3,
             ]),
             [
                 'username' => $config->username(),
