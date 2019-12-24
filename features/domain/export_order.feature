@@ -22,7 +22,7 @@ Feature: Exporting order
             | price | currency | shipping_amount |
             | 100   | EUR      | 7               |
         When order 2222 is exported
-        Then the export for order 2222 should be successful
+        Then the export should be successful
 
     Scenario: Getting a meaningful error when trying to create an order with incorrect parameters
         Given the order "2222" does not have payment data
