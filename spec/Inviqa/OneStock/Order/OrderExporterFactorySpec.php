@@ -13,8 +13,6 @@ class OrderExporterFactorySpec extends ObjectBehavior
 {
     function it_creates_an_order_exporter(Config $config, ApiClient $client)
     {
-        $config->isTestMode()->willReturn(true);
-
         $this::createFromConfig($config, $client)->shouldBeAnInstanceOf(OrderExporter::class);
     }
 }

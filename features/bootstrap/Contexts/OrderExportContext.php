@@ -13,8 +13,6 @@ use Webmozart\Assert\Assert;
 
 class OrderExportContext implements Context
 {
-    private $config;
-
     private $orders;
 
     private $exception;
@@ -31,9 +29,9 @@ class OrderExportContext implements Context
 
     public function __construct(string $cassettePath)
     {
-        $this->httpMock = new HttpMock($cassettePath);
-        $this->config = new TestConfig();
-        $this->api = new Api($cassettePath);
+        $config = new TestConfig($cassettePath);
+        $this->httpMock = $config->getHttpMock();
+        $this->api = new Api($config);
     }
 
     /**

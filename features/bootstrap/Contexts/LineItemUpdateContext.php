@@ -6,6 +6,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Services\Api;
+use Services\TestConfig;
 use Webmozart\Assert\Assert;
 
 class LineItemUpdateContext implements Context
@@ -19,7 +20,7 @@ class LineItemUpdateContext implements Context
 
     public function __construct(string $cassettePath)
     {
-        $this->api = new Api($cassettePath);
+        $this->api = new Api(new TestConfig($cassettePath));
     }
 
     /**

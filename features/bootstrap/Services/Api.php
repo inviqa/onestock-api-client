@@ -3,6 +3,7 @@
 namespace Services;
 
 use Inviqa\OneStock\Application;
+use Inviqa\OneStock\Config;
 use Inviqa\OneStock\OneStockException;
 
 class Api
@@ -22,9 +23,9 @@ class Api
      */
     private $lastApiException;
 
-    public function __construct($cassettePath)
+    public function __construct(Config $config)
     {
-        $this->application = new Application(new TestConfig(), new HttpMock($cassettePath));
+        $this->application = new Application($config);
     }
 
     public function updateLineItems(array $lineItemUpdateParameters)
