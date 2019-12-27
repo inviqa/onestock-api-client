@@ -6,7 +6,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Inviqa\OneStock\OneStockException;
-use Services\Api;
+use Services\TestApplicationProxy;
 use Services\HttpMock;
 use Services\TestConfig;
 use Webmozart\Assert\Assert;
@@ -17,21 +17,15 @@ class OrderExportContext implements Context
 
     private $exception;
 
-    /**
-     * @var HttpMock
-     */
     private $httpMock;
 
-    /**
-     * @var Api
-     */
-    private $api;
+    private $testApplicationProxy;
 
     public function __construct(string $cassettePath)
     {
         $config = new TestConfig($cassettePath);
         $this->httpMock = $config->getHttpMock();
-        $this->api = new Api($config);
+        $this->testApplicationProxy = new TestApplicationProxy($config);
     }
 
     /**
@@ -104,7 +98,7 @@ class OrderExportContext implements Context
      */
     public function iShouldGetAnErrorWithTheContent(PyStringNode $string)
     {
-        Assert::contains($this->api->getLastErrorMessage(), $string->getRaw());
+        Assert::contains($this->testApplicationProxy->getLastErrorMessage(), $string->getRaw());
     }
 
     /**
@@ -121,7 +115,7 @@ class OrderExportContext implements Context
      */
     public function orderIsExported(string $orderId)
     {
-        $this->api->exportOrder($this->orders[$orderId]);
+        $this->testApplicationProxy->exportOrder($this->orders[$orderId]);
     }
 
     /**
@@ -129,6 +123,6 @@ class OrderExportContext implements Context
      */
     public function theExportForOrderShouldBeSuccessful()
     {
-        Assert::true($this->api->isLastResponseSuccessful(), $this->api->getLastErrorMessage());
+        Assert::true($this->testApplicationProxy->isLastResponseSuccessful(), $this->testApplicationProxy->getLastErrorMessage());
     }
 }

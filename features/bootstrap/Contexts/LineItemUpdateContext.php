@@ -5,7 +5,7 @@ namespace Contexts;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
-use Services\Api;
+use Services\TestApplicationProxy;
 use Services\TestConfig;
 use Webmozart\Assert\Assert;
 
@@ -13,14 +13,11 @@ class LineItemUpdateContext implements Context
 {
     private $lineItemUpdateParameters = [];
 
-    /**
-     * @var Api
-     */
-    private $api;
+    private $testApplicationProxy;
 
     public function __construct(string $cassettePath)
     {
-        $this->api = new Api(new TestConfig($cassettePath));
+        $this->testApplicationProxy = new TestApplicationProxy(new TestConfig($cassettePath));
     }
 
     /**
@@ -36,7 +33,7 @@ class LineItemUpdateContext implements Context
      */
     public function lineItemsUpdatesAreExported()
     {
-        $this->api->updateLineItems($this->lineItemUpdateParameters);
+        $this->testApplicationProxy->updateLineItems($this->lineItemUpdateParameters);
     }
 
     /**
@@ -44,6 +41,6 @@ class LineItemUpdateContext implements Context
      */
     public function itShouldBeSuccessful()
     {
-        Assert::true($this->api->isLastResponseSuccessful(), $this->api->getLastErrorMessage());
+        Assert::true($this->testApplicationProxy->isLastResponseSuccessful(), $this->testApplicationProxy->getLastErrorMessage());
     }
 }

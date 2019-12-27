@@ -6,7 +6,7 @@ use Inviqa\OneStock\Application;
 use Inviqa\OneStock\Config;
 use Inviqa\OneStock\OneStockException;
 
-class Api
+class TestApplicationProxy
 {
     /**
      * @var Application
