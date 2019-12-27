@@ -3,24 +3,20 @@
 namespace Inviqa\OneStock;
 
 use Exception;
-use Inviqa\OneStock\Client\ApiClientFactory;
 use Inviqa\OneStock\Factory\ApiOperationFactory;
-use Inviqa\OneStock\LineUpdater\LineItemUpdater;
 
 class Application
 {
     private $orderExporter;
 
-    /**
-     * @var LineItemUpdater
-     */
     private $lineItemsUpdater;
 
     public function __construct(Config $config)
     {
-        $client = ApiClientFactory::createApiClient($config);
-        $this->orderExporter = ApiOperationFactory::createOrderExporter($config, $client);
-        $this->lineItemsUpdater = ApiOperationFactory::createLineItemUpdater($config, $client);
+        $factory = new ApiOperationFactory($config);
+
+        $this->orderExporter = $factory->createOrderExporter();
+        $this->lineItemsUpdater = $factory->createLineItemUpdater();
     }
 
     public function exportOrder(array $orderParams): OneStockResponse
