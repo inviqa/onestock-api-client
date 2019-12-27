@@ -37,7 +37,7 @@ class LineItemUpdateContext implements Context
     }
 
     /**
-     * @Then it should be successful
+     * @Then they should be successful
      */
     public function itShouldBeSuccessful()
     {

@@ -24,4 +24,4 @@ Feature: Exporting line item updates
             }
             """
         When line items updates are exported
-        Then it should be successful
+        Then they should be successful
