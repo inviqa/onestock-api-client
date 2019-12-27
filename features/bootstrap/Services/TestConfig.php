@@ -29,12 +29,12 @@ class TestConfig implements Config
 
     public function username(): string
     {
-        return 'foo';
+        return 'test-user';
     }
 
     public function password(): string
     {
-        return 'bar';
+        return 'test-password';
     }
 
     public function siteId(): string
