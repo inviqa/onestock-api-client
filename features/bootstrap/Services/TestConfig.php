@@ -6,6 +6,17 @@ use Inviqa\OneStock\Config;
 
 class TestConfig implements Config
 {
+    /**
+     * @var HttpMock
+     */
+    private $httpMock;
+
+    public function __construct(string $cassettePath)
+    {
+        $this->httpMock = new HttpMock($cassettePath);
+        $this->httpMock->enable();
+    }
+
     private $extraParameters = [
         'error' => '',
         'testOrders' => [],
@@ -18,12 +29,12 @@ class TestConfig implements Config
 
     public function username(): string
     {
-        return '';
+        return 'test-user';
     }
 
     public function password(): string
     {
-        return '';
+        return 'test-password';
     }
 
     public function siteId(): string
@@ -31,23 +42,18 @@ class TestConfig implements Config
         return 's100';
     }
 
-    public function isTestMode(): bool
-    {
-        return true;
-    }
-
     public function extraParameters(): array
     {
         return $this->extraParameters;
     }
 
-    public function registerOrder($orderId)
-    {
-        $this->extraParameters['testOrders'][] = $orderId;
-    }
-
     public function addError(string $error)
     {
         $this->extraParameters['error'] = $error;
+    }
+
+    public function getHttpMock(): HttpMock
+    {
+        return $this->httpMock;
     }
 }

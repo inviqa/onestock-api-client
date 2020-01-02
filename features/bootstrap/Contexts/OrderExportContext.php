@@ -5,28 +5,27 @@ namespace Contexts;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Inviqa\OneStock\Application;
-use Inviqa\OneStock\Client\FakeClient;
 use Inviqa\OneStock\OneStockException;
+use Services\TestApplicationProxy;
+use Services\HttpMock;
 use Services\TestConfig;
 use Webmozart\Assert\Assert;
 
 class OrderExportContext implements Context
 {
-    private $application;
-
-    private $config;
-
     private $orders;
-
-    private $response;
 
     private $exception;
 
-    public function __construct()
+    private $httpMock;
+
+    private $testApplicationProxy;
+
+    public function __construct(string $cassettePath)
     {
-        $this->config = new TestConfig();
-        $this->application = new Application($this->config);
+        $config = new TestConfig($cassettePath);
+        $this->httpMock = $config->getHttpMock();
+        $this->testApplicationProxy = new TestApplicationProxy($config);
     }
 
     /**
@@ -91,15 +90,7 @@ class OrderExportContext implements Context
      */
     public function theOrderAlreadyExistsInOneStockApi($orderId)
     {
-        $this->config->registerOrder($orderId);
-    }
-
-    /**
-     * @Given the order export process is erroring via a :error exception
-     */
-    public function theOrderExportProcessIsErroringViaAException(string $error)
-    {
-        $this->config->addError($error);
+        $this->httpMock->useMocks(HttpMock::MOCK_ONESTOCK_ENTITY_EXIST);
     }
 
     /**
@@ -107,8 +98,7 @@ class OrderExportContext implements Context
      */
     public function iShouldGetAnErrorWithTheContent(PyStringNode $string)
     {
-        Assert::notNull($this->exception);
-        Assert::eq($this->exception->getMessage(), $string->getRaw());
+        Assert::contains($this->testApplicationProxy->getLastErrorMessage(), $string->getRaw());
     }
 
     /**
@@ -125,19 +115,14 @@ class OrderExportContext implements Context
      */
     public function orderIsExported(string $orderId)
     {
-        try {
-            $this->response = $this->application->exportOrder($this->orders[$orderId]);
-        } catch (OneStockException $e) {
-            $this->exception = $e;
-        }
+        $this->testApplicationProxy->exportOrder($this->orders[$orderId]);
     }
 
     /**
-     * @Then the export for order :orderId should be successful
+     * @Then the export should be successful
      */
-    public function theExportForOrderShouldBeSuccessful(string $orderId)
+    public function theExportForOrderShouldBeSuccessful()
     {
-        Assert::notNull($this->response);
-        Assert::true($this->response->isSuccess());
+        Assert::true($this->testApplicationProxy->isLastResponseSuccessful(), $this->testApplicationProxy->getLastErrorMessage());
     }
 }

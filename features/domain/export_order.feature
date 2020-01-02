@@ -22,7 +22,7 @@ Feature: Exporting order
             | price | currency | shipping_amount |
             | 100   | EUR      | 7               |
         When order 2222 is exported
-        Then the export for order 2222 should be successful
+        Then the export should be successful
 
     Scenario: Getting a meaningful error when trying to create an order with incorrect parameters
         Given the order "2222" does not have payment data
@@ -41,15 +41,4 @@ Feature: Exporting order
         Then I should get an error with the content:
             """
             There was an error during your OneStock request: The order with the ID 2222 you are trying to create already exists.
-            """
-
-    Scenario: Getting a non-order related error when trying to export an order
-        And the order export process is erroring via a "Network failure" exception
-        Given the order "2222" has the following payment
-            | price | currency | shipping_amount |
-            | 100   | EUR      | 7               |
-        When order 2222 is exported
-        Then I should get an error with the content:
-            """
-            There was an error during your OneStock request: Network failure
             """

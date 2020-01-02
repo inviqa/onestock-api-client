@@ -12,7 +12,5 @@ interface Config
 
     public function siteId(): string;
 
-    public function isTestMode(): bool;
-
     public function extraParameters(): array;
 }

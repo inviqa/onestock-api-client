@@ -3,18 +3,18 @@
 namespace Inviqa\OneStock\Client;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 use Inviqa\OneStock\Config;
 
 class ApiClientFactory
 {
-    public static function createApiClient(Config $config): ApiClient
+    public static function createApiClient(Config $config): HttpClient
     {
-        if ($config->isTestMode()) {
-            return new FakeClient($config);
-        }
-
         return new HttpClient(
-            new Client(['base_uri' => $config->endpoint()]),
+            new Client([
+                'base_uri' => $config->endpoint(),
+                RequestOptions::HTTP_ERRORS => false,
+            ]),
             [
                 'username' => $config->username(),
                 'password' => $config->password(),

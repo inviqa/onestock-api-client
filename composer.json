@@ -5,14 +5,16 @@
     "require": {
         "php" : "^7.2",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.4"
+        "guzzlehttp/guzzle": "^6.4",
+        "dantleech/invoke": "^1.0"
     },
     "require-dev": {
         "behat/behat": "^3.5",
         "phpspec/phpspec": "^6.0",
         "webmozart/assert": "^1.5",
         "friendsofphp/php-cs-fixer": "^2.16",
-        "phpstan/phpstan": "^0.12"
+        "phpstan/phpstan": "^0.12",
+        "php-vcr/php-vcr": "^1.4"
     },
     "autoload": {
         "psr-4": {
@@ -23,7 +25,8 @@
         "integrate": [
             "@php-cs-fixer",
             "@phpspec",
-            "@behat"
+            "@behat",
+            "@phpstan"
         ],
         "phpspec": "bin/phpspec run --ansi",
         "behat": "bin/behat --colors",

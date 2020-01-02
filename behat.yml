@@ -2,4 +2,7 @@ default:
     suites:
         domain:
             contexts:
-                - Contexts\OrderExportContext
+                - Contexts\OrderExportContext:
+                    cassettePath: '%paths.base%/features/bootstrap/fixtures/php-vcr-casettes'
+                - Contexts\LineItemUpdateContext:
+                    cassettePath: '%paths.base%/features/bootstrap/fixtures/php-vcr-casettes'
