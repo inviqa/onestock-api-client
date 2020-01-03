@@ -4,6 +4,7 @@ namespace Inviqa\OneStock;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 
 class OneStockResponse
 {
@@ -98,6 +99,12 @@ class OneStockResponse
 
     private function getResponseBodyAsArray(): array
     {
-        return json_decode($this->response->getBody()->__toString(), true);
+        $decoded = json_decode($this->response->getBody()->__toString(), true);
+
+        if (null === $decoded) {
+            throw new RuntimeException(sprintf('Could not decode JSON string: "%s"', json_last_error_msg()));
+        }
+
+        return $decoded;
     }
 }

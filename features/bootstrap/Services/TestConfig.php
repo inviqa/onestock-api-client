@@ -3,7 +3,6 @@
 namespace Services;
 
 use Inviqa\OneStock\Config;
-use Inviqa\OneStock\LoggerInterface;
 
 class TestConfig implements Config
 {

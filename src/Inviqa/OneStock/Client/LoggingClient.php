@@ -6,6 +6,7 @@ use Inviqa\OneStock\Entity\LineItem;
 use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\Request\JsonRequest;
+use Psr\Log\LoggerInterface;
 
 class LoggingClient implements ApiClient
 {
