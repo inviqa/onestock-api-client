@@ -2,6 +2,7 @@
 
 namespace Inviqa\OneStock\Client;
 
+use Inviqa\OneStock\Entity\LineItem;
 use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\Request\JsonRequest;
@@ -27,14 +28,32 @@ class LoggingClient implements ApiClient
 
     public function createOrder(JsonRequest $request): OneStockResponse
     {
-        $this->logger->info('One Stock Request', [
-        ]);
+        $response = $this->innerClient->createOrder($request);
+        $this->log(__METHOD__, 'order_id', [$request->order->id], $response);
 
-        return $this->innerClient->createOrder($request);
+        return $response;
     }
 
     public function updateLineItems(LineItemUpdateRequest $request): OneStockResponse
     {
-        return $this->innerClient->updateLineItems($request);
+        $response = $this->innerClient->updateLineItems($request);
+        $this->log(__METHOD__, 'item_id', array_map(function (LineItem $item) {
+            return $item->item_id;
+        }, $request->items), $response);
+
+        return $response;
+    }
+
+    private function log(string $methodName, string $idField, array $idValues, OneStockResponse $response)
+    {
+        $level = $response->isSuccess() ? 'info' : 'error';
+        $this->logger->log($level, 'OneStock API', [
+            'method' => $methodName,
+            $idField => $idValues,
+            'request' => $response->request()->getBody()->__toString(),
+            'response' => $response->response()->getBody()->__toString(),
+            'http_code' => $response->response()->getStatusCode(),
+            'http_reason' => $response->response()->getReasonPhrase(),
+        ]);
     }
 }

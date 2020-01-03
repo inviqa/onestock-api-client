@@ -86,6 +86,16 @@ class OneStockResponse
         return $statusCode;
     }
 
+    public function request(): RequestInterface
+    {
+        return $this->request;
+    }
+
+    public function response(): ResponseInterface
+    {
+        return $this->response;
+    }
+
     private function getResponseBodyAsArray(): array
     {
         return json_decode($this->response->getBody()->__toString(), true);
