@@ -4,6 +4,7 @@ namespace Inviqa\OneStock;
 
 use Exception;
 use Inviqa\OneStock\Factory\ApiOperationFactory;
+use Psr\Log\NullLogger;
 
 class Application
 {
@@ -11,9 +12,10 @@ class Application
 
     private $lineItemsUpdater;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, ?LoggerInterface $logger = null)
     {
-        $factory = new ApiOperationFactory($config);
+        $logger = $logger ?: new NullLogger();
+        $factory = new ApiOperationFactory($config, $logger);
 
         $this->orderExporter = $factory->createOrderExporter();
         $this->lineItemsUpdater = $factory->createLineItemUpdater();

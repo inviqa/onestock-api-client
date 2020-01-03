@@ -5,12 +5,13 @@ namespace Inviqa\OneStock\Client;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Inviqa\OneStock\Config;
+use Psr\Log\LoggerInterface;
 
 class ApiClientFactory
 {
-    public static function createApiClient(Config $config): HttpClient
+    public static function createApiClient(Config $config, LoggerInterface $logger): ApiClient
     {
-        return new HttpClient(
+        $client = new HttpClient(
             new Client([
                 'base_uri' => $config->endpoint(),
                 RequestOptions::HTTP_ERRORS => false,
@@ -20,5 +21,9 @@ class ApiClientFactory
                 'password' => $config->password(),
             ]
         );
+
+        $client = new LoggingClient($client, $logger);
+
+        return $client;
     }
 }

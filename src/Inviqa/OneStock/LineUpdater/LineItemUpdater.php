@@ -3,24 +3,24 @@
 namespace Inviqa\OneStock\LineUpdater;
 
 use DTL\Invoke\Invoke;
-use Inviqa\OneStock\Client\HttpClient;
+use Inviqa\OneStock\Client\ApiClient;
 use Inviqa\OneStock\OneStockResponse;
 
 class LineItemUpdater
 {
     /**
-     * @var HttpClient
+     * @var ApiClient
      */
-    private $httpClient;
+    private $apiClient;
 
     /**
      * @var string
      */
     private $siteId;
 
-    public function __construct(HttpClient $httpClient, string $siteId)
+    public function __construct(ApiClient $apiClient, string $siteId)
     {
-        $this->httpClient = $httpClient;
+        $this->apiClient = $apiClient;
         $this->siteId = $siteId;
     }
 
@@ -31,6 +31,6 @@ class LineItemUpdater
             'items' => $lineItemUpdateParameters,
         ]);
 
-        return $this->httpClient->updateLineItems($request);
+        return $this->apiClient->updateLineItems($request);
     }
 }

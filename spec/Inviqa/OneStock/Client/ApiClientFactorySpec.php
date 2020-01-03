@@ -2,6 +2,7 @@
 
 namespace spec\Inviqa\OneStock\Client;
 
+use Inviqa\OneStock\Client\ApiClient;
 use Inviqa\OneStock\Client\ApiClientFactory;
 use Inviqa\OneStock\Client\HttpClient;
 use Inviqa\OneStock\Config;
@@ -18,6 +19,6 @@ class ApiClientFactorySpec extends ObjectBehavior
         $config->username()->willReturn('bar');
         $config->password()->willReturn('pass');
 
-        $this->createApiClient($config)->shouldHaveType(HttpClient::class);
+        $this->createApiClient($config)->shouldHaveType(ApiClient::class);
     }
 }

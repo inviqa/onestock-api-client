@@ -7,7 +7,7 @@ use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\Request\JsonRequest;
 
-class HttpClient
+class HttpClient implements ApiClient
 {
     private $client;
 
