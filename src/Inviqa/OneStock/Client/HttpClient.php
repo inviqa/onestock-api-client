@@ -3,6 +3,7 @@
 namespace Inviqa\OneStock\Client;
 
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Request;
 use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\Request\JsonRequest;
@@ -21,16 +22,18 @@ class HttpClient implements ApiClient
 
     public function createOrder(JsonRequest $request): OneStockResponse
     {
-        $response = $this->client->request('POST', 'orders', $this->buildRequest($request));
+        $request = new Request('POST', 'orders', $this->buildHeaders(), json_encode($request));
+        $response = $this->client->send($request);
 
-        return new OneStockResponse($response->getBody()->getContents());
+        return new OneStockResponse($request, $response);
     }
 
     public function updateLineItems(LineItemUpdateRequest $request): OneStockResponse
     {
-        $response = $this->client->request('PATCH', 'multi/line_items', $this->buildRequest($request));
+        $request = new Request('PATCH', 'multi/line_items', $this->buildHeaders(), json_encode($request));
+        $response = $this->client->send($request);
 
-        return new OneStockResponse($response->getBody()->getContents());
+        return new OneStockResponse($request, $response);
     }
 
     private function buildHeaders(): array
