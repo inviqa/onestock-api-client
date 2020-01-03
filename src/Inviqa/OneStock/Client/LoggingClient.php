@@ -5,6 +5,7 @@ namespace Inviqa\OneStock\Client;
 use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\Request\JsonRequest;
+use Psr\Log\LoggerInterface;
 
 class LoggingClient implements ApiClient
 {
@@ -13,13 +14,22 @@ class LoggingClient implements ApiClient
      */
     private $innerClient;
 
-    public function __construct(ApiClient $innerClient)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(ApiClient $innerClient, LoggerInterface $logger)
     {
         $this->innerClient = $innerClient;
+        $this->logger = $logger;
     }
 
     public function createOrder(JsonRequest $request): OneStockResponse
     {
+        $this->logger->info('One Stock Request', [
+        ]);
+
         return $this->innerClient->createOrder($request);
     }
 

@@ -4,6 +4,7 @@ namespace Inviqa\OneStock;
 
 use Exception;
 use Inviqa\OneStock\Factory\ApiOperationFactory;
+use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 class Application

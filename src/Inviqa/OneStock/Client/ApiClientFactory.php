@@ -22,8 +22,6 @@ class ApiClientFactory
             ]
         );
 
-        $client = new LoggingClient($client, $logger);
-
-        return $client;
+        return new LoggingClient($client, $logger);
     }
 }
