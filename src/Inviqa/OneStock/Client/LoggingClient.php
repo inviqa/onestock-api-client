@@ -29,7 +29,7 @@ class LoggingClient implements ApiClient
     public function createOrder(JsonRequest $request): OneStockResponse
     {
         $response = $this->innerClient->createOrder($request);
-        $this->log(__METHOD__, 'order_id', [$request->order->id], $response);
+        $this->log('createOrder', 'order_id', [$request->order->id], $response);
 
         return $response;
     }
@@ -37,7 +37,7 @@ class LoggingClient implements ApiClient
     public function updateLineItems(LineItemUpdateRequest $request): OneStockResponse
     {
         $response = $this->innerClient->updateLineItems($request);
-        $this->log(__METHOD__, 'item_id', array_map(function (LineItem $item) {
+        $this->log('updateLineItems', 'item_id', array_map(function (LineItem $item) {
             return $item->item_id;
         }, $request->items), $response);
 
@@ -47,7 +47,7 @@ class LoggingClient implements ApiClient
     private function log(string $methodName, string $idField, array $idValues, OneStockResponse $response)
     {
         $level = $response->isSuccess() ? 'info' : 'error';
-        $this->logger->log($level, 'OneStock API', [
+        $this->logger->log($level, 'OneStock API transaction', [
             'method' => $methodName,
             $idField => $idValues,
             'request' => $response->request()->getBody()->__toString(),
