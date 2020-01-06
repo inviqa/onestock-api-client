@@ -20,7 +20,9 @@ Feature: Exporting line item updates
                         "name": "AMCE shipping",
                         "option": "CODE_ACME"
                     }
-                }
+                },
+                "from": "created",
+                "to": "removed"
             }
             """
         When line items updates are exported
