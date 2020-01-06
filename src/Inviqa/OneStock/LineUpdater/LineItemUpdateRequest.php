@@ -26,8 +26,8 @@ class LineItemUpdateRequest
         $this->items = array_map(function (array $item) {
             if (isset($item['payment']['price'])) {
                 $item['payment']['price'] = (float) $item['payment']['price'];
+                $item['payment'] = Invoke::new(ItemPayment::class, $item['payment']);
             }
-            $item['payment'] = Invoke::new(ItemPayment::class, $item['payment']);
 
             if (isset($item['delivery'])) {
                 if (isset($item['delivery']['carrier'])) {
