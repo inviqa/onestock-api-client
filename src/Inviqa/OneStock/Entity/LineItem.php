@@ -12,7 +12,7 @@ class LineItem
 
     public function __construct(
         string $item_id,
-        ItemPayment $payment,
+        ItemPayment $payment = null,
         ItemDelivery $delivery = null,
         string $from = null,
         string $to = null
