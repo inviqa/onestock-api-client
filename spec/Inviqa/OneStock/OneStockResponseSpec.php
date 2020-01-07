@@ -3,27 +3,35 @@
 namespace spec\Inviqa\OneStock;
 
 use PhpSpec\ObjectBehavior;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class OneStockResponseSpec extends ObjectBehavior
 {
-    function it_is_successful_if_the_response_text_contains_an_order_id()
+    function let(RequestInterface $request, ResponseInterface $response, StreamInterface $body)
     {
-        $response = json_encode(['id' => '1234']);
+        $response->getBody()->willReturn($body);
+        $this->beConstructedWith($request, $response);
+    }
 
-        $this->beConstructedWith($response);
+    function it_is_successful_if_the_response_code_starts_with_two(ResponseInterface $response)
+    {
+
+        $response->getStatusCode()->willReturn(201);
         $this->isSuccess()->shouldBe(true);
     }
 
-    function it_extracts_the_error_from_the_response()
+    function it_extracts_the_error_from_the_response(ResponseInterface $response, StreamInterface $body)
     {
-        $response = json_encode(
+        $response->getStatusCode()->willReturn(400);
+        $body->__toString()->willReturn(json_encode(
             [
                 "error" => "invalid_json",
                 "message" => "invalid character '\"' after object key:value pair",
             ]
-        );
+        ));
 
-        $this->beConstructedWith($response);
         $this->isSuccess()->shouldBe(false);
         $this->getErrorMessage()->shouldBe("invalid character '\"' after object key:value pair");
         $this->getErrorId()->shouldBe('invalid_json');
@@ -32,20 +40,18 @@ class OneStockResponseSpec extends ObjectBehavior
         $this->getErrorCode()->shouldBe(400);
     }
 
-    function it_extracts_order_duplicate_error()
+    function it_extracts_order_duplicate_error(ResponseInterface $response, StreamInterface $body)
     {
-        $response = json_encode(
-            [
-                "code" => 409,
-                "name" => "already_exists",
-                "params" => [
-                    "entity" => "order",
-                    "id" => "1",
-                ],
-            ]
-        );
+        $response->getStatusCode()->willReturn(409);
+        $body->__toString()->willReturn(json_encode([
+            "code" => 409,
+            "name" => "already_exists",
+            "params" => [
+                "entity" => "order",
+                "id" => "1",
+            ],
+        ]));
 
-        $this->beConstructedWith($response);
         $this->isSuccess()->shouldBe(false);
         $this->getErrorMessage()->shouldBe("API Error: already_exists");
         $this->getErrorId()->shouldBe('already_exists');

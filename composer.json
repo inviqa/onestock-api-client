@@ -21,6 +21,12 @@
             "": ["src","features/bootstrap"]
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "": ["src","features/bootstrap"],
+            "spec\\": "spec"
+        }
+    },
     "scripts": {
         "integrate": [
             "@php-cs-fixer",

@@ -2,9 +2,11 @@
 
 namespace Services;
 
+use Exception;
 use Inviqa\OneStock\Application;
 use Inviqa\OneStock\Config;
 use Inviqa\OneStock\OneStockException;
+use Inviqa\OneStock\OneStockResponse;
 
 class TestApplicationProxy
 {
@@ -60,5 +62,10 @@ class TestApplicationProxy
         return is_null($exception)
             ? ''
             : sprintf('%s exception is thrown: %s', get_class($exception), $exception->getMessage());
+    }
+
+    public function getLastResponse(): OneStockResponse
+    {
+        return $this->lastApiResponse;
     }
 }

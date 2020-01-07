@@ -38,7 +38,7 @@ Feature: Exporting order
             | 100   | EUR      | 7               |
         And the order "2222" already exists in OneStockApi
         When order 2222 is exported
-        Then I should get an error with the content:
+        Then I should get an response error with the content:
             """
-            There was an error during your OneStock request: The order with the ID 2222 you are trying to create already exists.
+            API Error: already_exists
             """

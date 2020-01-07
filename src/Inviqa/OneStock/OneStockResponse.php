@@ -2,23 +2,31 @@
 
 namespace Inviqa\OneStock;
 
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
+
 class OneStockResponse
 {
-    private $success;
-    private $response;
-
-    public function __construct(string $response)
-    {
-        $this->response = json_decode($response, true);
-        $this->success = !empty($this->response['id']);
-    }
+    /**
+     * @var RequestInterface
+     */
+    private $request;
 
     /**
-     * @return bool
+     * @var ResponseInterface
      */
-    public function isSuccess()
+    private $response;
+
+    public function __construct(RequestInterface $request, ResponseInterface $response)
     {
-        return $this->success;
+        $this->request = $request;
+        $this->response = $response;
+    }
+
+    public function isSuccess(): bool
+    {
+        return substr((string) $this->response->getStatusCode(), 0, 1) === '2';
     }
 
     /**
@@ -26,7 +34,7 @@ class OneStockResponse
      */
     public function getErrorId()
     {
-        $error = $this->getError();
+        $error = $this->getResponseBodyAsArray();
         $errorId = 0;
         if (isset($error['name'])) {
             $errorId = $error['name'];
@@ -40,7 +48,7 @@ class OneStockResponse
 
     public function getErrorMessage()
     {
-        $error = $this->getError();
+        $error = $this->getResponseBodyAsArray();
         if (isset($error['message'])) {
             return $error['message'];
         }
@@ -50,7 +58,7 @@ class OneStockResponse
 
     public function getErrorEntityType()
     {
-        $error = $this->getError();
+        $error = $this->getResponseBodyAsArray();
         if (isset($error['params'])) {
             return $error['params']['entity'];
         }
@@ -60,7 +68,7 @@ class OneStockResponse
 
     public function getErrorEntityId()
     {
-        $error = $this->getError();
+        $error = $this->getResponseBodyAsArray();
         if (isset($error['params'])) {
             return $error['params']['id'];
         }
@@ -70,7 +78,7 @@ class OneStockResponse
 
     public function getErrorCode()
     {
-        $error = $this->getError();
+        $error = $this->getResponseBodyAsArray();
         $statusCode = 400;
         if (isset($error['code'])) {
             $statusCode = $error['code'];
@@ -79,12 +87,24 @@ class OneStockResponse
         return $statusCode;
     }
 
-    private function getError()
+    public function request(): RequestInterface
     {
-        if (!$this->success) {
-            return $this->response;
+        return $this->request;
+    }
+
+    public function response(): ResponseInterface
+    {
+        return $this->response;
+    }
+
+    private function getResponseBodyAsArray(): array
+    {
+        $decoded = json_decode($this->response->getBody()->__toString(), true);
+
+        if (null === $decoded) {
+            throw new RuntimeException(sprintf('Could not decode JSON string: "%s"', json_last_error_msg()));
         }
 
-        return [];
+        return $decoded;
     }
 }

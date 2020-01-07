@@ -8,7 +8,7 @@ use Inviqa\OneStock\Config;
 
 class ApiClientFactory
 {
-    public static function createApiClient(Config $config): HttpClient
+    public static function createApiClient(Config $config): ApiClient
     {
         return new HttpClient(
             new Client([

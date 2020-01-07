@@ -94,6 +94,14 @@ class OrderExportContext implements Context
     }
 
     /**
+     * @Then /^I should get an response error with the content:$/
+     */
+    public function iShouldGetResponseErrorWithTheContent(PyStringNode $string)
+    {
+        Assert::contains($this->testApplicationProxy->getLastResponse()->getErrorMessage(), $string->getRaw());
+    }
+
+    /**
      * @Then /^I should get an error with the content:$/
      */
     public function iShouldGetAnErrorWithTheContent(PyStringNode $string)
