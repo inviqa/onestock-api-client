@@ -15,10 +15,10 @@ class ApiOperationFactory
 
     private $client;
 
-    public function __construct(Config $config, $logger)
+    public function __construct(Config $config)
     {
         $this->config = $config;
-        $this->client = ApiClientFactory::createApiClient($config, $logger);
+        $this->client = ApiClientFactory::createApiClient($config);
     }
 
     public function createLineItemUpdater(): LineItemUpdater
