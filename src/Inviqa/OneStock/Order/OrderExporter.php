@@ -25,10 +25,6 @@ class OrderExporter
         $request = $this->jsonRequestBuilder->buildRequestFrom($orderParams);
         $response = $this->apiClient->createOrder($request);
 
-        if (!$response->isSuccess()) {
-            throw ApiException::createFromJsonResponse($response);
-        }
-
         return $response;
     }
 }
