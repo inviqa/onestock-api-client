@@ -4,7 +4,6 @@ namespace Inviqa\OneStock\Order;
 
 use Inviqa\OneStock\Client\ApiClient;
 use Inviqa\OneStock\OneStockResponse;
-use Inviqa\OneStock\Order\Exception\ApiException;
 use Inviqa\OneStock\Order\Request\JsonRequestBuilder;
 
 class OrderExporter
@@ -23,8 +22,7 @@ class OrderExporter
     public function export(array $orderParams): OneStockResponse
     {
         $request = $this->jsonRequestBuilder->buildRequestFrom($orderParams);
-        $response = $this->apiClient->createOrder($request);
 
-        return $response;
+        return $this->apiClient->createOrder($request);
     }
 }

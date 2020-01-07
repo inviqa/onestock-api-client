@@ -38,22 +38,4 @@ class OrderExporterSpec extends ObjectBehavior
 
         $this->export($orderParams)->shouldReturn($response);
     }
-
-    function it_throws_an_exception_when_the_response_is_not_successful(
-        JsonRequestBuilder $jsonRequestBuilder,
-        ApiClient $apiClient,
-        JsonRequest $jsonRequest,
-        OneStockResponse $response
-    )
-    {
-        $response->isSuccess()->willReturn(false);
-        $response->getErrorMessage()->willReturn('No');
-        $response->getErrorId()->willReturn('55');
-        $response->getErrorCode()->willReturn(11);
-        $orderParams = ['id' => '123'];
-        $jsonRequestBuilder->buildRequestFrom($orderParams)->willReturn($jsonRequest);
-        $apiClient->createOrder($jsonRequest)->willReturn($response);
-
-        $this->shouldThrow(ApiException::class)->duringExport($orderParams);
-    }
 }
