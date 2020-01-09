@@ -10,5 +10,5 @@ interface ApiClient
 {
     public function createOrder(JsonRequest $request): OneStockResponse;
 
-    public function updateLineItems(LineItemUpdateRequest $request): OneStockResponse;
+    public function request(string $method, string $endpoint, object $request): OneStockResponse;
 }

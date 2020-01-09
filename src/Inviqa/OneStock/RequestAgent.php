@@ -1,12 +1,14 @@
 <?php
 
-namespace Inviqa\OneStock\LineUpdater;
+namespace Inviqa\OneStock;
 
 use DTL\Invoke\Invoke;
 use Inviqa\OneStock\Client\ApiClient;
+use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
+use Inviqa\OneStock\Parcel\ParcelCreateRequest;
 
-class LineItemUpdater
+final class RequestAgent
 {
     /**
      * @var ApiClient
@@ -31,6 +33,16 @@ class LineItemUpdater
             'items' => $lineItemUpdateParameters,
         ]);
 
-        return $this->apiClient->updateLineItems($request);
+        return $this->apiClient->request('PATCH', 'multi/line_items', $request);
+    }
+
+    public function parcelCreate(array $parameters): OneStockResponse
+    {
+        $request = Invoke::new(ParcelCreateRequest::class, [
+            'site_id' => $this->siteId,
+            'parcel' => $parameters,
+        ]);
+
+        return $this->apiClient->request('POST', 'parcels', $request);
     }
 }

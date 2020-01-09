@@ -4,26 +4,27 @@ Feature: Exporting line item updates
     I should be able to send line item changes to OneStock
 
     Scenario: Successfully exporting line items
-        Given the following line items is changed:
+        When I send the following line item update:
             """
-            {
-                "id": "1234",
-                "payment": {
-                    "price": "99.99",
-                    "previous_price": "10.99",
-                    "discount_absolute": "19.99",
-                    "discount_percentage": "20"
-                },
-                "delivery": {
-                    "tracking_code": "tracking001",
-                    "carrier": {
-                        "name": "AMCE shipping",
-                        "option": "CODE_ACME"
-                    }
-                },
-                "from": "created",
-                "to": "removed"
-            }
+            [
+                {
+                    "id": "1234",
+                    "payment": {
+                        "price": "99.99",
+                        "previous_price": "10.99",
+                        "discount_absolute": "19.99",
+                        "discount_percentage": "20"
+                    },
+                    "delivery": {
+                        "tracking_code": "tracking001",
+                        "carrier": {
+                            "name": "AMCE shipping",
+                            "option": "CODE_ACME"
+                        }
+                    },
+                    "from": "created",
+                    "to": "removed"
+                }
+            ]
             """
-        When line items updates are exported
-        Then they should be successful
+        Then the API should return a successful response

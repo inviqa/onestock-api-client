@@ -4,7 +4,7 @@ namespace Inviqa\OneStock\Factory;
 
 use Inviqa\OneStock\Client\ApiClientFactory;
 use Inviqa\OneStock\Config;
-use Inviqa\OneStock\LineUpdater\LineItemUpdater;
+use Inviqa\OneStock\RequestAgent;
 use Inviqa\OneStock\Order\OrderExporter;
 use Inviqa\OneStock\Order\OrderSanitizer;
 use Inviqa\OneStock\Order\Request\JsonRequestBuilder;
@@ -21,9 +21,9 @@ class ApiOperationFactory
         $this->client = ApiClientFactory::createApiClient($config);
     }
 
-    public function createLineItemUpdater(): LineItemUpdater
+    public function createRequestAgent(): RequestAgent
     {
-        return new LineItemUpdater(
+        return new RequestAgent(
             $this->client,
             $this->config->siteId()
         );

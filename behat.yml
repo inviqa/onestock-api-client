@@ -4,5 +4,5 @@ default:
             contexts:
                 - Contexts\OrderExportContext:
                     cassettePath: '%paths.base%/features/bootstrap/fixtures/php-vcr-casettes'
-                - Contexts\LineItemUpdateContext:
+                - Contexts\ApplicationContext:
                     cassettePath: '%paths.base%/features/bootstrap/fixtures/php-vcr-casettes'

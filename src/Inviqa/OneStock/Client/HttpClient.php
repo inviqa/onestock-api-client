@@ -28,9 +28,9 @@ class HttpClient implements ApiClient
         return new OneStockResponse($request, $response);
     }
 
-    public function updateLineItems(LineItemUpdateRequest $request): OneStockResponse
+    public function request(string $method, string $endpoint, object $request): OneStockResponse
     {
-        $request = new Request('PATCH', 'multi/line_items', $this->buildHeaders(), json_encode($request));
+        $request = new Request($method, $endpoint, $this->buildHeaders(), json_encode($request));
         $response = $this->client->send($request);
 
         return new OneStockResponse($request, $response);

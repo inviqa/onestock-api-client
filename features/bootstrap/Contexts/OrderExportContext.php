@@ -131,6 +131,9 @@ class OrderExportContext implements Context
      */
     public function theExportForOrderShouldBeSuccessful()
     {
-        Assert::true($this->testApplicationProxy->isLastResponseSuccessful(), $this->testApplicationProxy->getLastErrorMessage());
+        Assert::true(
+            $this->testApplicationProxy->isLastResponseSuccessful(),
+            $this->testApplicationProxy->getLastResponse()->getErrorMessage()
+        );
     }
 }
