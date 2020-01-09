@@ -25,7 +25,7 @@ final class RequestAgent
         $this->siteId = $siteId;
     }
 
-    public function update(array $lineItemUpdateParameters): OneStockResponse
+    public function lineItemUpdate(array $lineItemUpdateParameters): OneStockResponse
     {
         $request = Invoke::new(LineItemUpdateRequest::class, [
             'site_id' => $this->siteId,

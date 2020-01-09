@@ -31,7 +31,7 @@ class Application
     public function updateLineItems(array $lineItemUpdateParameters): OneStockResponse
     {
         try {
-            return $this->requestAgent->update($lineItemUpdateParameters);
+            return $this->requestAgent->lineItemUpdate($lineItemUpdateParameters);
         } catch (Exception $e) {
             throw OneStockException::createFromException($e);
         }
