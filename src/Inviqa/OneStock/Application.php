@@ -4,8 +4,6 @@ namespace Inviqa\OneStock;
 
 use Exception;
 use Inviqa\OneStock\Factory\ApiOperationFactory;
-use Inviqa\OneStock\RequestAgent;
-use Inviqa\OneStock\Order\OrderExporter;
 
 class Application
 {

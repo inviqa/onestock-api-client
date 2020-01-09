@@ -4,10 +4,10 @@ namespace Inviqa\OneStock\Factory;
 
 use Inviqa\OneStock\Client\ApiClientFactory;
 use Inviqa\OneStock\Config;
-use Inviqa\OneStock\RequestAgent;
 use Inviqa\OneStock\Order\OrderExporter;
 use Inviqa\OneStock\Order\OrderSanitizer;
 use Inviqa\OneStock\Order\Request\JsonRequestBuilder;
+use Inviqa\OneStock\RequestAgent;
 
 class ApiOperationFactory
 {

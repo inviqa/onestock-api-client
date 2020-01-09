@@ -2,7 +2,6 @@
 
 namespace Inviqa\OneStock\Client;
 
-use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\Request\JsonRequest;
 

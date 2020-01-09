@@ -104,11 +104,7 @@ class OneStockResponse
         $decoded = json_decode($jsonString, true);
 
         if (null === $decoded) {
-            throw new RuntimeException(sprintf(
-                'Could not decode JSON string "%s": "%s"',
-                $jsonString,
-                json_last_error_msg()
-            ));
+            throw new RuntimeException(sprintf('Could not decode JSON string "%s": "%s"', $jsonString, json_last_error_msg()));
         }
 
         return $decoded;

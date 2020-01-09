@@ -5,7 +5,6 @@ namespace Inviqa\OneStock;
 use DTL\Invoke\Invoke;
 use Inviqa\OneStock\Client\ApiClient;
 use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
-use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Parcel\ParcelCreateRequest;
 
 final class RequestAgent

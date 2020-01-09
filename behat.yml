@@ -3,6 +3,6 @@ default:
         domain:
             contexts:
                 - Contexts\OrderExportContext:
-                    cassettePath: '%paths.base%/features/bootstrap/fixtures/php-vcr-casettes'
+                    cassettePath: '%paths.base%/features/fixtures/php-vcr-casettes'
                 - Contexts\ApplicationContext:
-                    cassettePath: '%paths.base%/features/bootstrap/fixtures/php-vcr-casettes'
+                    cassettePath: '%paths.base%/features/fixtures/php-vcr-casettes'

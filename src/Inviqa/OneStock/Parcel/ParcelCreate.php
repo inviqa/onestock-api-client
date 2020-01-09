@@ -41,14 +41,12 @@ class ParcelCreate
         string $to = null,
         array $line_item_ids = [],
         string $tracking_code = null
-    )
-    {
+    ) {
         $this->id = $id;
         $this->date = $date;
         $this->to = $to;
-        $this->order_id = (string)$order_id;
+        $this->order_id = (string) $order_id;
         $this->line_item_ids = $line_item_ids;
         $this->tracking_code = $tracking_code;
     }
-
 }

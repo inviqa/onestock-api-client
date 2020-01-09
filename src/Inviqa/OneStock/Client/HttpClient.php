@@ -4,7 +4,6 @@ namespace Inviqa\OneStock\Client;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
-use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Order\Request\JsonRequest;
 
