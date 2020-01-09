@@ -24,7 +24,7 @@ class ApplicationContext implements Context
      */
     public function theFollowingLineItemsIsChanged(PyStringNode $string)
     {
-        $this->testApplicationProxy->updateLineItems($this->decodeJson($string));
+        $this->testApplicationProxy->updateLineItems($this->decodeJson($string->getRaw()));
     }
 
     /**
@@ -32,7 +32,7 @@ class ApplicationContext implements Context
      */
     public function iCreateTheFollowingParcel(PyStringNode $string)
     {
-        $this->testApplicationProxy->createParcel(json_decode($string->getRaw(), true));
+        $this->testApplicationProxy->createParcel($this->decodeJson($string->getRaw(), true));
     }
 
     /**
@@ -46,16 +46,27 @@ class ApplicationContext implements Context
         );
     }
 
-    private function decodeJson(PyStringNode $string)
+    /**
+     * @Then the following request should be sent to Onestock:
+     */
+    public function theFollowingRequestShouldBeSentToOneStock(PyStringNode $node)
     {
-        $decoded = json_decode($string->getRaw(), true);
+        Assert::eq($this->decodeJson(
+            $this->testApplicationProxy->getLastResponse()->request()->getBody()->__toString()
+        ), $this->decodeJson($node->getRaw()));
+    }
+
+    private function decodeJson(string $json)
+    {
+        $decoded = json_decode($json, true);
         if (null === $decoded) {
             throw new RuntimeException(sprintf(
                 'Could not decode JSON "%s": %s',
-                $string->getRaw(),
+                $json,
                 json_last_error_msg()
             ));
         }
         return $decoded;
+
     }
 }
