@@ -7,8 +7,8 @@ use VCR\VCR;
 
 class HttpMock
 {
-    const MOCK_ONESTOCK_ENTITY_EXIST = 'onestock_entity_exist';
-    const MOCK_ONESTOCK_SUCCESS = 'onestock_success';
+    const MOCK_ONESTOCK_ENTITY_EXIST = 'onestock_entity_exist.yml';
+    const MOCK_ONESTOCK_SUCCESS = 'onestock_success.yml';
 
     /**
      * @var string
