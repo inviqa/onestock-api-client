@@ -2,12 +2,12 @@
 
 namespace Inviqa\OneStock\Factory;
 
+use Inviqa\OneStock\Agent\RequestAgent;
 use Inviqa\OneStock\Client\ApiClientFactory;
 use Inviqa\OneStock\Config;
 use Inviqa\OneStock\Order\OrderExporter;
 use Inviqa\OneStock\Order\OrderSanitizer;
 use Inviqa\OneStock\Order\Request\JsonRequestBuilder;
-use Inviqa\OneStock\Agent\RequestAgent;
 
 class ApiOperationFactory
 {
