@@ -9,14 +9,14 @@ class Application
 {
     private $orderExporter;
 
-    private $lineItemsUpdater;
+    private $requestAgent;
 
     public function __construct(Config $config)
     {
         $factory = new ApiOperationFactory($config);
 
         $this->orderExporter = $factory->createOrderExporter();
-        $this->lineItemsUpdater = $factory->createLineItemUpdater();
+        $this->requestAgent = $factory->createRequestAgent();
     }
 
     public function exportOrder(array $orderParams): OneStockResponse
@@ -31,7 +31,16 @@ class Application
     public function updateLineItems(array $lineItemUpdateParameters): OneStockResponse
     {
         try {
-            return $this->lineItemsUpdater->update($lineItemUpdateParameters);
+            return $this->requestAgent->lineItemUpdate($lineItemUpdateParameters);
+        } catch (Exception $e) {
+            throw OneStockException::createFromException($e);
+        }
+    }
+
+    public function createParcel(array $parameters): OneStockResponse
+    {
+        try {
+            return $this->requestAgent->parcelCreate($parameters);
         } catch (Exception $e) {
             throw OneStockException::createFromException($e);
         }

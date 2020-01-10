@@ -30,7 +30,7 @@ class TestApplicationProxy
         $this->application = new Application($config);
     }
 
-    public function updateLineItems(array $lineItemUpdateParameters)
+    public function updateLineItems(array $lineItemUpdateParameters): void
     {
         try {
             $this->lastApiResponse = $this->application->updateLineItems($lineItemUpdateParameters);
@@ -39,13 +39,27 @@ class TestApplicationProxy
         }
     }
 
-    public function exportOrder(array $orderParameters)
+    public function exportOrder(array $orderParameters): void
     {
         try {
             $this->lastApiResponse = $this->application->exportOrder($orderParameters);
         } catch (OneStockException $e) {
             $this->lastApiException = $e;
         }
+    }
+
+    public function createParcel(array $parameters): void
+    {
+        try {
+            $this->lastApiResponse = $this->application->createParcel($parameters);
+        } catch (OneStockException $e) {
+            $this->lastApiException = $e;
+        }
+    }
+
+    public function getLastResponse(): OneStockResponse
+    {
+        return $this->lastApiResponse;
     }
 
     public function isLastResponseSuccessful(): bool
@@ -62,10 +76,5 @@ class TestApplicationProxy
         return is_null($exception)
             ? ''
             : sprintf('%s exception is thrown: %s', get_class($exception), $exception->getMessage());
-    }
-
-    public function getLastResponse(): OneStockResponse
-    {
-        return $this->lastApiResponse;
     }
 }

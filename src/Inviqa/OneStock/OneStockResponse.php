@@ -49,6 +49,7 @@ class OneStockResponse
     public function getErrorMessage()
     {
         $error = $this->getResponseBodyAsArray();
+
         if (isset($error['message'])) {
             return $error['message'];
         }
@@ -99,10 +100,11 @@ class OneStockResponse
 
     private function getResponseBodyAsArray(): array
     {
-        $decoded = json_decode($this->response->getBody()->__toString(), true);
+        $jsonString = $this->response->getBody()->__toString();
+        $decoded = json_decode($jsonString, true);
 
         if (null === $decoded) {
-            throw new RuntimeException(sprintf('Could not decode JSON string: "%s"', json_last_error_msg()));
+            throw new RuntimeException(sprintf('Could not decode JSON string "%s": "%s"', $jsonString, json_last_error_msg()));
         }
 
         return $decoded;

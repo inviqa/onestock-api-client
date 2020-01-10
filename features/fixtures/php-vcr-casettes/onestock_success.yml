@@ -51,3 +51,29 @@
             Date: 'Fri, 20 Dec 2019 11:06:17 GMT'
             Content-Length: '0'
         body: '{"code":"1234","id":"1234"}'
+-
+    request:
+        method: POST
+        url: 'https://api-qualif.onestock-retail.com/parcels'
+        headers:
+            Host: api-qualif.onestock-retail.com
+            Expect: null
+            Content-Type: null
+            Accept-Encoding: null
+            User-Agent: 'GuzzleHttp/6.5.1 curl/7.67.0 PHP/7.2.9-1'
+            Auth-User: test-user
+            Auth-Password: test-password
+            Accept: null
+        body: '{"site_id":"s100","parcel":{"id":"1234","date":201901090000,"to":"shipped","order_id":"1234","line_item_ids":[1,2,3,4],"tracking_code":"1234"}}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: 'OK'
+        headers:
+            Content-Type: application/json
+            Request-Id: 5e171cfb484ae400012f37d1
+            Vary: Origin
+            Date: 'Thu, 09 Jan 2020 12:30:51 GMT'
+            Content-Length: '123'
+        body: '{"id":"5d3b09337f6566000130baaa"}'
