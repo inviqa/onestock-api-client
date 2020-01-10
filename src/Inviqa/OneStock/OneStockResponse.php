@@ -27,13 +27,9 @@ class OneStockResponse
     public function isSuccess(): bool
     {
         try {
-            $body = $this->getResponseBodyAsArray();
-
-            if (is_iterable($body)) {
-                foreach ($body as $item) {
-                    if (isset($item['code']) && !$this->isSuccessfulCode($item['code'])) {
-                        return false;
-                    }
+            foreach ($this->getResponseBodyAsArray() as $item) {
+                if (isset($item['code']) && !$this->isSuccessfulCode($item['code'])) {
+                    return false;
                 }
             }
         } catch (RuntimeException $e) {
