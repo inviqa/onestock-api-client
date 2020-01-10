@@ -91,7 +91,7 @@ class JsonRequestBuilder
     {
         $lineItems = [];
         foreach ($orderParams['line_items'] as $item) {
-            $lineItems[] = new LineItem($item['item_id'], new ItemPayment($item['item_price']));
+            $lineItems[] = new LineItem($item['id'], $item['item_id'], new ItemPayment($item['item_price']));
         }
 
         return $lineItems;

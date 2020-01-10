@@ -44,6 +44,7 @@ class TestFactory
             'billing_country_code' => 'GB',
             'line_items' => [
                 [
+                    'id' => '1',
                     'item_id' => '1',
                     'item_price' => 12.0,
                 ]
@@ -89,7 +90,7 @@ class TestFactory
             new Delivery(new Destination($address, self::EXAMPLE_ENDPOINT_ID)),
             new Payment('GBP', 12.0, 5.0, $address),
             $customer,
-            [new LineItem('1', new ItemPayment(12.0))]
+            [new LineItem('1', '1', new ItemPayment(12.0))]
         );
     }
 }
