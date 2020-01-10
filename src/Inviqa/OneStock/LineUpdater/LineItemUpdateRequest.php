@@ -26,10 +26,10 @@ class LineItemUpdateRequest
     {
         $this->site_id = $site_id;
         $this->ids = array_map(function (array $item) {
-            return $item['item_id'];
+            return $item['id'];
         }, $items);
         $this->bodies = array_map(function (array $item) {
-            unset($item['item_id']);
+            unset($item['id']);
 
             return Invoke::new(LineItemBody::class, ['item' => $item]);
         }, $items);

@@ -14,8 +14,8 @@ Feature: Exporting order
             | billing_country_code | billing_postcode | billing_city | billing_address_line_1 | billing_address_line_2 |
             | FR                   | 123456           | Paris        | test address 1         | door 3                 |
         And order with id "2222" contains the following line items
-            | item_id    | item_price |
-            | 1100722044 | 100        |
+            | id | item_id    | item_price |
+            | 12 | 1100722044 | 100        |
 
     Scenario: Successfully exporting an order with a single product
         Given the order "2222" has the following payment

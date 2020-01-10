@@ -7,7 +7,7 @@ Feature: Exporting line item updates
         Given the following line items is changed:
             """
             {
-                "item_id": "1234",
+                "id": "1234",
                 "payment": {
                     "price": "99.99",
                     "previous_price": "10.99",
