@@ -26,7 +26,17 @@ class OneStockResponse
 
     public function isSuccess(): bool
     {
-        return substr((string) $this->response->getStatusCode(), 0, 1) === '2';
+        try {
+            foreach ($this->getResponseBodyAsArray() as $item) {
+                if (isset($item['code']) && !$this->isSuccessfulCode($item['code'])) {
+                    return false;
+                }
+            }
+        } catch (RuntimeException $e) {
+            // Not a valid JSON, stop looking for error codes.
+        }
+
+        return $this->isSuccessfulCode((string) $this->response->getStatusCode());
     }
 
     /**
@@ -96,6 +106,11 @@ class OneStockResponse
     public function response(): ResponseInterface
     {
         return $this->response;
+    }
+
+    protected function isSuccessfulCode(string $code): bool
+    {
+        return substr($code, 0, 1) === '2';
     }
 
     private function getResponseBodyAsArray(): array

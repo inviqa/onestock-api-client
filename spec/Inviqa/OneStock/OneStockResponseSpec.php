@@ -59,4 +59,18 @@ class OneStockResponseSpec extends ObjectBehavior
         $this->getErrorEntityId()->shouldBe('1');
         $this->getErrorCode()->shouldBe(409);
     }
+
+    function it_is_not_successful_when_response_body_contains_error_code(
+        ResponseInterface $response, StreamInterface $body
+    ) {
+        $response->getStatusCode()->willReturn(200);
+        $body->__toString()->willReturn(json_encode([
+            [
+                "code" => 400,
+                "error" => "invalid id: expected a string",
+            ]
+        ]));
+
+        $this->isSuccess()->shouldReturn(false);
+    }
 }
