@@ -1,10 +1,11 @@
 <?php
 
-namespace Inviqa\OneStock;
+namespace Inviqa\OneStock\Agent;
 
 use DTL\Invoke\Invoke;
 use Inviqa\OneStock\Client\ApiClient;
 use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
+use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Parcel\ParcelCreateRequest;
 
 final class RequestAgent
