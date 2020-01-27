@@ -72,6 +72,7 @@ class JsonRequestBuilder
             $orderParams['currency'],
             $orderParams['price'],
             $orderParams['shipping_amount'],
+            $orderParams['shipping_currency'],
             $this->createAddressFromOrderAddress('billing', $orderParams)
         );
     }

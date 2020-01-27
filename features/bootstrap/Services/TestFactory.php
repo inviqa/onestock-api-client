@@ -32,6 +32,7 @@ class TestFactory
             'currency' => 'GBP',
             'price' => 12.0,
             'shipping_amount' => 5.0,
+            'shipping_currency' => 'GBP',
             'shipping_address_line_1' => '8',
             'shipping_address_line_2' => 'Road Lane',
             'shipping_city' => 'London',
@@ -88,7 +89,7 @@ class TestFactory
             '1',
             '2',
             new Delivery(new Destination($address, self::EXAMPLE_ENDPOINT_ID)),
-            new Payment('GBP', 12.0, 5.0, $address),
+            new Payment('GBP', 12.0, 5.0, 'GBP', $address),
             $customer,
             [new LineItem('1', '1', new ItemPayment(12.0))]
         );

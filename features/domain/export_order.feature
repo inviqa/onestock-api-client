@@ -19,8 +19,8 @@ Feature: Exporting order
 
     Scenario: Successfully exporting an order with a single product
         Given the order "2222" has the following payment
-            | price | currency | shipping_amount |
-            | 100   | EUR      | 7               |
+            | price | currency | shipping_amount | shipping_currency |
+            | 100   | EUR      | 7               | GBP               |
         When order 2222 is exported
         Then the export should be successful
 
@@ -34,8 +34,8 @@ Feature: Exporting order
 
     Scenario: Getting a meaningful error when trying to create an order again
         Given the order "2222" has the following payment
-            | price | currency | shipping_amount |
-            | 100   | EUR      | 7               |
+            | price | currency | shipping_amount | shipping_currency |
+            | 100   | EUR      | 7               | GBP               |
         And the order "2222" already exists in OneStockApi
         When order 2222 is exported
         Then I should get an response error with the content:

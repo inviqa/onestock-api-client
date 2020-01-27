@@ -21,6 +21,7 @@ class OrderSanitizer
         'email' => '',
         'title' => '',
         'shipping_amount' => '',
+        'shipping_currency' => '',
         'shipping_address_line_1' => '',
         'shipping_city' => '',
         'shipping_postcode' => '',
