@@ -15,6 +15,9 @@ Feature: Exporting line item updates
                         "discount_absolute": "19.99",
                         "discount_percentage": "20"
                     },
+                    "information": {
+                        "foo": "bar"
+                    },
                     "delivery": {
                         "tracking_code": "tracking001",
                         "carrier": {
