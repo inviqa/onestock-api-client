@@ -11,7 +11,7 @@
             Auth-User: test-user
             Auth-Password: test-password
             Accept: null
-        body: '{"site_id":"s100","ids":["1234"],"bodies":[{"line_item":{"payment":{"price":99.99,"previous_price":"10.99","discount_absolute":"19.99","discount_percentage":"20"},"delivery":{"tracking_code":"tracking001","carrier":{"name":"AMCE shipping","option":"CODE_ACME"}},"from":"created","to":"removed"}}]}'
+        body: '{"site_id":"s100","ids":["1234"],"bodies":[{"line_item":{"payment":{"price":99.99,"previous_price":"10.99","discount_absolute":"19.99","discount_percentage":"20"},"delivery":{"tracking_code":"tracking001","carrier":{"name":"AMCE shipping","option":"CODE_ACME"}},"from":"created","to":"removed","information":[]}}]}'
     response:
         status:
             http_version: '1.1'
