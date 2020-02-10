@@ -29,7 +29,7 @@ class HttpClient implements ApiClient
 
     public function request(string $method, string $endpoint, object $request): OneStockResponse
     {
-        $request = new Request($method, $endpoint, $this->buildHeaders(), json_encode($request));
+        $request = new Request($method, $endpoint, $this->buildHeaders(), json_encode($this->removeEmpty((array) $request)));
         $response = $this->client->send($request);
 
         return new OneStockResponse($request, $response);
@@ -49,5 +49,19 @@ class HttpClient implements ApiClient
             'headers' => $this->buildHeaders(),
             'body' => json_encode($request),
         ];
+    }
+
+    private function removeEmpty(array $request)
+    {
+        foreach ($request as $key => $value) {
+            if (is_array($value) || is_object($value)) {
+                $request[$key] = $this->removeEmpty((array) $value);
+            }
+            if (empty($request[$key])) {
+                unset($request[$key]);
+            }
+        }
+
+        return $request;
     }
 }
