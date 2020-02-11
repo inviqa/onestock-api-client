@@ -5,6 +5,7 @@ namespace Inviqa\OneStock\Client;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Inviqa\OneStock\Config;
+use Inviqa\OneStock\Factory\SerializerFactory;
 
 class ApiClientFactory
 {
@@ -18,7 +19,8 @@ class ApiClientFactory
             [
                 'username' => $config->username(),
                 'password' => $config->password(),
-            ]
+            ],
+            (new SerializerFactory())->createSerializer()
         );
     }
 }
