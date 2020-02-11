@@ -19,21 +19,27 @@ use Inviqa\OneStock\Entity\Payment;
 use Inviqa\OneStock\Entity\Regions;
 use Inviqa\OneStock\Entity\ShippingCarrier;
 use Inviqa\OneStock\Entity\UpdatedLineItem;
+use Inviqa\OneStock\Factory\SerializerFactory;
 use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
 use Inviqa\OneStock\Order\Request\JsonRequest;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class HttpClientSpec extends ObjectBehavior
 {
     function let(ClientInterface $client, Response $response)
     {
-        $this->beConstructedWith($client, ['username' => 'user', 'password' => 'password']);
+        $this->beConstructedWith(
+            $client,
+            ['username' => 'user', 'password' => 'password'],
+            (new SerializerFactory())->createSerializer()
+        );
 
         $client->send(Argument::cetera())->willReturn($response);
     }
 
-    function it_does_not_encode_empty_arguments(ClientInterface $client)
+    function it_does_not_encode_empty_arguments(ClientInterface $client, SerializerInterface $serializer)
     {
         $requestParams = new LineItemUpdateRequest(
             '1234',
