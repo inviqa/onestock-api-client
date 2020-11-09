@@ -28,6 +28,14 @@ class ApplicationContext implements Context
     }
 
     /**
+     * @When I send the following short picked items:
+     */
+    public function theFollowingShortPickedItems(PyStringNode $string)
+    {
+        $this->testApplicationProxy->shortPickItems($this->decodeJson($string->getRaw()));
+    }
+
+    /**
      * @When I create the following parcel:
      */
     public function iCreateTheFollowingParcel(PyStringNode $string)
