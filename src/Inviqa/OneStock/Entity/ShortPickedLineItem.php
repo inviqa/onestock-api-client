@@ -2,8 +2,7 @@
 
 namespace Inviqa\OneStock\Entity;
 
-use DateTime;
-use Exception;
+use DateTimeImmutable;
 use UnexpectedValueException;
 
 class ShortPickedLineItem
@@ -26,9 +25,7 @@ class ShortPickedLineItem
 
     private function setDate(int $date): void
     {
-        try {
-            new DateTime('@' . $date);
-        } catch (Exception $e) {
+        if (DateTimeImmutable::createFromFormat('U', (string) $date) === false) {
             throw new UnexpectedValueException(sprintf('Date parameter must be a valid timestamp, but got "%s".', $date));
         }
 
