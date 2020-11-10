@@ -39,6 +39,15 @@ class TestApplicationProxy
         }
     }
 
+    public function shortPickItems(array $parameters): void
+    {
+        try {
+            $this->lastApiResponse = $this->application->shortPickItems($parameters);
+        } catch (OneStockException $e) {
+            $this->lastApiException = $e;
+        }
+    }
+
     public function exportOrder(array $orderParameters): void
     {
         try {

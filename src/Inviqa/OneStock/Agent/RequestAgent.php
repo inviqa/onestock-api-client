@@ -5,6 +5,7 @@ namespace Inviqa\OneStock\Agent;
 use DTL\Invoke\Invoke;
 use Inviqa\OneStock\Client\ApiClient;
 use Inviqa\OneStock\LineUpdater\LineItemUpdateRequest;
+use Inviqa\OneStock\LineUpdater\ShortPickRequest;
 use Inviqa\OneStock\OneStockResponse;
 use Inviqa\OneStock\Parcel\ParcelCreateRequest;
 
@@ -44,5 +45,12 @@ final class RequestAgent
         ]);
 
         return $this->apiClient->request('POST', 'parcels', $request);
+    }
+
+    public function shortPickItems(array $parameters): OneStockResponse
+    {
+        $request = Invoke::new(ShortPickRequest::class, $parameters);
+
+        return $this->apiClient->request('PATCH', 'shortpick_line_items', $request);
     }
 }

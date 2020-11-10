@@ -77,3 +77,30 @@
             Date: 'Thu, 09 Jan 2020 12:30:51 GMT'
             Content-Length: '123'
         body: '{"id":"5d3b09337f6566000130baaa"}'
+
+-
+    request:
+        method: PATCH
+        url: 'https://api-qualif.onestock-retail.com/shortpick_line_items'
+        headers:
+            Host: api-qualif.onestock-retail.com
+            Expect: null
+            Content-Type: null
+            Accept-Encoding: null
+            User-Agent: 'GuzzleHttp/6.5.0 curl/7.67.0 PHP/7.3.12'
+            Auth-User: test-user
+            Auth-Password: test-password
+            Accept: null
+        body: '{"order_id":"1234","line_items":[{"date":1604941750,"id":"1","item_id":"1","state":"short_pick"}]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Content-Type: application/json
+            Request-Id: 5dfcd5015ae7fc000125c569
+            Vary: Origin
+            Date: 'Fri, 20 Dec 2019 14:04:49 GMT'
+            Content-Length: '65'
+        body: '{"id":"1234"}'

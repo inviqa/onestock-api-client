@@ -45,4 +45,13 @@ class Application
             throw OneStockException::createFromException($e);
         }
     }
+
+    public function shortPickItems(array $parameters): OneStockResponse
+    {
+        try {
+            return $this->requestAgent->shortPickItems($parameters);
+        } catch (Exception $e) {
+            throw OneStockException::createFromException($e);
+        }
+    }
 }

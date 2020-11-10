@@ -31,3 +31,20 @@ Feature: Exporting line item updates
             ]
             """
         Then the API should return a successful response
+
+    Scenario: Trigger re-orchestration of line items
+        When I send the following short picked items:
+            """
+            {
+                "order_id": "1234",
+                "line_items": [
+                     {
+                        "date": 1604941750,
+                        "id": "1",
+                        "item_id": "1",
+                        "state": "short_pick"
+                    }
+                ]
+            }
+            """
+        Then the API should return a successful response
