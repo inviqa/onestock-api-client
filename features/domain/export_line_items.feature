@@ -42,7 +42,8 @@ Feature: Exporting line item updates
                         "date": 1604941750,
                         "id": "1",
                         "item_id": "1",
-                        "state": "short_pick"
+                        "state": "short_pick",
+                        "origin": "warehouse_code"
                     }
                 ]
             }
