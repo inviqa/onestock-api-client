@@ -15,12 +15,15 @@ class ShortPickedLineItem
 
     public $state;
 
-    public function __construct(int $date, string $id, string $item_id, string $state)
+    public $origin;
+
+    public function __construct(int $date, string $id, string $item_id, string $state, string $origin)
     {
         $this->setDate($date);
         $this->id = $id;
         $this->item_id = $item_id;
         $this->state = $state;
+        $this->origin = $origin;
     }
 
     private function setDate(int $date): void

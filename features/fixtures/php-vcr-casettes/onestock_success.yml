@@ -91,7 +91,7 @@
             Auth-User: test-user
             Auth-Password: test-password
             Accept: null
-        body: '{"order_id":"1234","line_items":[{"date":1604941750,"id":"1","item_id":"1","state":"short_pick"}]}'
+        body: '{"order_id":"1234","line_items":[{"date":1604941750,"id":"1","item_id":"1","state":"short_pick","origin":"warehouse_code"}]}'
     response:
         status:
             http_version: '1.1'
@@ -104,3 +104,66 @@
             Date: 'Fri, 20 Dec 2019 14:04:49 GMT'
             Content-Length: '65'
         body: '{"id":"1234"}'
+-
+    request:
+        method: PATCH
+        url: 'https://api-qualif.onestock-retail.com/shortpick_line_items'
+        headers:
+            Host: api-qualif.onestock-retail.com
+            Expect: ''
+            Content-Type: ''
+            Accept-Encoding: ''
+            User-Agent: 'GuzzleHttp/6.5.5 curl/7.73.0 PHP/7.4.12'
+            Auth-User: test-user
+            Auth-Password: test-password
+            Accept: ''
+        body: '{"order_id":"1234","line_items":[{"date":1604941750,"id":"1","item_id":"1","state":"short_pick","origin":"warehouse_code"}]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '404'
+            message: 'Not Found'
+        headers:
+            Content-Type: 'text/plain; charset=utf-8'
+            Vary: Origin
+            Date: 'Thu, 19 Nov 2020 13:24:31 GMT'
+            Content-Length: '560'
+        body: "\n  ____________/\\\\\\________/\\\\\\\\\\\\\\_______________/\\\\\\____\n   __________/\\\\\\\\\\______/\\\\\\/////\\\\\\___________/\\\\\\\\\\____\n    ________/\\\\\\/\\\\\\_____/\\\\\\____\\//\\\\\\________/\\\\\\/\\\\\\____\n     ______/\\\\\\/\\/\\\\\\____\\/\\\\\\_____\\/\\\\\\______/\\\\\\/\\/\\\\\\____\n      ____/\\\\\\/__\\/\\\\\\____\\/\\\\\\_____\\/\\\\\\____/\\\\\\/__\\/\\\\\\____\n       __/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_\\/\\\\\\_____\\/\\\\\\__/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_\n        _\\///////////\\\\\\//__\\//\\\\\\____/\\\\\\__\\///////////\\\\\\//__\n         ___________\\/\\\\\\_____\\///\\\\\\\\\\\\\\/_____________\\/\\\\\\____\n          ___________\\///________\\///////_______________\\///_____\n\n"
+        curl_info:
+            url: 'https://api-qualif.onestock-retail.com/shortpick_line_items'
+            content_type: 'text/plain; charset=utf-8'
+            http_code: 404
+            header_size: 139
+            request_size: 328
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.50595
+            namelookup_time: 0.111381
+            connect_time: 0.327644
+            pretransfer_time: 0.428404
+            size_upload: !!float 124
+            size_download: !!float 560
+            speed_download: !!float 1108
+            speed_upload: !!float 245
+            download_content_length: !!float 560
+            upload_content_length: !!float 124
+            starttransfer_time: 0.505887
+            redirect_time: !!float 0
+            redirect_url: ''
+            primary_ip: 51.38.202.101
+            certinfo: {  }
+            primary_port: 443
+            local_ip: 192.168.1.245
+            local_port: 37164
+            http_version: 2
+            protocol: 2
+            ssl_verifyresult: 0
+            scheme: HTTPS
+            appconnect_time_us: 428227
+            connect_time_us: 327644
+            namelookup_time_us: 111381
+            pretransfer_time_us: 428404
+            redirect_time_us: 0
+            starttransfer_time_us: 505887
+            total_time_us: 505950
