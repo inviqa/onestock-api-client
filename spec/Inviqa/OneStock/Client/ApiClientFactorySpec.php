@@ -19,6 +19,7 @@ class ApiClientFactorySpec extends ObjectBehavior
         $config->endpoint()->willReturn('foo');
         $config->username()->willReturn('bar');
         $config->password()->willReturn('pass');
+        $config->extraParameters()->willReturn([]);
 
         $this->createApiClient($config)->shouldHaveType(ApiClient::class);
     }

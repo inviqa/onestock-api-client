@@ -5,6 +5,7 @@ namespace spec\Inviqa\OneStock\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Inviqa\OneStock\Client\HttpAuthentication;
 use Inviqa\OneStock\Client\HttpClient;
 use Inviqa\OneStock\Entity\Address;
 use Inviqa\OneStock\Entity\Country;
@@ -32,7 +33,7 @@ class HttpClientSpec extends ObjectBehavior
     {
         $this->beConstructedWith(
             $client,
-            ['username' => 'user', 'password' => 'password'],
+            new HttpAuthentication('user', 'password'),
             (new SerializerFactory())->createSerializer()
         );
 
