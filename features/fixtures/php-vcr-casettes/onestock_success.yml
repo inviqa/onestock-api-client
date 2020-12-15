@@ -167,3 +167,67 @@
             redirect_time_us: 0
             starttransfer_time_us: 505887
             total_time_us: 505950
+-
+    request:
+        method: POST
+        url: 'https://api-qualif.onestock-retail.com/parcels'
+        headers:
+            Host: api-qualif.onestock-retail.com
+            Expect: ''
+            Content-Type: ''
+            Accept-Encoding: ''
+            User-Agent: 'GuzzleHttp/6.5.5 curl/7.73.0 PHP/7.4.13'
+            Custom-Username-Header: test-user
+            Custom-Password-Header: test-password
+            Accept: ''
+        body: '{"site_id":"s100","parcel":{"id":"1234","date":201901090000,"to":"shipped","order_id":"1234","line_item_ids":[1,2,3,4],"tracking_code":"1234"}}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '400'
+            message: 'Bad Request'
+        headers:
+            Content-Type: application/json
+            Request-Id: 5fd8d99478dcf8000159d2a4
+            Vary: Origin
+            Date: 'Tue, 15 Dec 2020 15:43:16 GMT'
+            Content-Length: '58'
+        body: '{"error":"auth_error","message":"missing token parameter"}'
+        curl_info:
+            url: 'https://api-qualif.onestock-retail.com/parcels'
+            content_type: application/json
+            http_code: 400
+            header_size: 169
+            request_size: 355
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.566846
+            namelookup_time: 0.381316
+            connect_time: 0.419544
+            pretransfer_time: 0.513952
+            size_upload: !!float 143
+            size_download: !!float 58
+            speed_download: !!float 102
+            speed_upload: !!float 252
+            download_content_length: !!float 58
+            upload_content_length: !!float 143
+            starttransfer_time: 0.566796
+            redirect_time: !!float 0
+            redirect_url: ''
+            primary_ip: 51.38.202.101
+            certinfo: {  }
+            primary_port: 443
+            local_ip: 192.168.1.245
+            local_port: 43842
+            http_version: 2
+            protocol: 2
+            ssl_verifyresult: 0
+            scheme: HTTPS
+            appconnect_time_us: 513824
+            connect_time_us: 419544
+            namelookup_time_us: 381316
+            pretransfer_time_us: 513952
+            redirect_time_us: 0
+            starttransfer_time_us: 566796
+            total_time_us: 566846

@@ -3,6 +3,9 @@
 namespace Inviqa\OneStock;
 
 use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\RequestOptions;
 use Inviqa\OneStock\Factory\ApiOperationFactory;
 
 class Application
@@ -11,9 +14,16 @@ class Application
 
     private $requestAgent;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, ClientInterface $httpClient = null)
     {
-        $factory = new ApiOperationFactory($config);
+        if (null === $httpClient) {
+            $httpClient = new Client([
+                'base_uri' => $config->endpoint(),
+                RequestOptions::HTTP_ERRORS => false,
+            ]);
+        }
+
+        $factory = new ApiOperationFactory($config, $httpClient);
 
         $this->orderExporter = $factory->createOrderExporter();
         $this->requestAgent = $factory->createRequestAgent();

@@ -52,6 +52,11 @@ class TestConfig implements Config
         $this->extraParameters['error'] = $error;
     }
 
+    public function addExtraParameter(string $name, string $value): void
+    {
+        $this->extraParameters[$name] = $value;
+    }
+
     public function getHttpMock(): HttpMock
     {
         return $this->httpMock;

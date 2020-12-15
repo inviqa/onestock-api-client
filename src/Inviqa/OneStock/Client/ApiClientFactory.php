@@ -2,14 +2,13 @@
 
 namespace Inviqa\OneStock\Client;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
+use GuzzleHttp\ClientInterface;
 use Inviqa\OneStock\Config;
 use Inviqa\OneStock\Factory\SerializerFactory;
 
 class ApiClientFactory
 {
-    public static function createApiClient(Config $config): ApiClient
+    public static function createApiClient(Config $config, ClientInterface $httpClient): ApiClient
     {
         $extraParameters = $config->extraParameters();
         $usernameHeader = $extraParameters['authentication_username_header'] ?? null;
@@ -28,10 +27,7 @@ class ApiClientFactory
             );
 
         return new HttpClient(
-            new Client([
-                'base_uri' => $config->endpoint(),
-                RequestOptions::HTTP_ERRORS => false,
-            ]),
+            $httpClient,
             $authentication,
             (new SerializerFactory())->createSerializer()
         );

@@ -3,6 +3,7 @@
 namespace Services;
 
 use Exception;
+use GuzzleHttp\ClientInterface;
 use Inviqa\OneStock\Application;
 use Inviqa\OneStock\Config;
 use Inviqa\OneStock\OneStockException;
@@ -25,9 +26,9 @@ class TestApplicationProxy
      */
     private $lastApiException;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, ClientInterface $httpClient = null)
     {
-        $this->application = new Application($config);
+        $this->application = new Application($config, $httpClient);
     }
 
     public function updateLineItems(array $lineItemUpdateParameters): void

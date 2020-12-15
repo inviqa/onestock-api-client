@@ -2,6 +2,7 @@
 
 namespace Inviqa\OneStock\Factory;
 
+use GuzzleHttp\ClientInterface;
 use Inviqa\OneStock\Agent\RequestAgent;
 use Inviqa\OneStock\Client\ApiClientFactory;
 use Inviqa\OneStock\Config;
@@ -15,10 +16,10 @@ class ApiOperationFactory
 
     private $client;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, ClientInterface $httpClient)
     {
         $this->config = $config;
-        $this->client = ApiClientFactory::createApiClient($config);
+        $this->client = ApiClientFactory::createApiClient($config, $httpClient);
     }
 
     public function createRequestAgent(): RequestAgent
