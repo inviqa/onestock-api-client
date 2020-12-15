@@ -5,18 +5,41 @@ namespace Contexts;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 use RuntimeException;
 use Services\TestApplicationProxy;
 use Services\TestConfig;
+use Services\TraceableHttpClient;
 use Webmozart\Assert\Assert;
+use Behat\Gherkin\Node\TableNode;
 
 class ApplicationContext implements Context
 {
+
+    /**
+     * @var TestApplicationProxy
+     */
     private $testApplicationProxy;
+
+    /**
+     * @var TraceableHttpClient
+     */
+    private $tracebleHttpClient;
+
+    /**
+     * @var TestConfig
+     */
+    private $config;
 
     public function __construct(string $cassettePath)
     {
-        $this->testApplicationProxy = new TestApplicationProxy(new TestConfig($cassettePath));
+        $this->config = new TestConfig($cassettePath);
+
+        $this->tracebleHttpClient = new TraceableHttpClient(new Client([
+            'base_uri' => $this->config->endpoint(),
+            RequestOptions::HTTP_ERRORS => false,
+        ]));
     }
 
     /**
@@ -24,7 +47,17 @@ class ApplicationContext implements Context
      */
     public function theFollowingLineItemsIsChanged(PyStringNode $string)
     {
-        $this->testApplicationProxy->updateLineItems($this->decodeJson($string->getRaw()));
+        $this->applicationProxy()->updateLineItems($this->decodeJson($string->getRaw()));
+    }
+
+    /**
+     * @Given the following extra parameters configured:
+     */
+    public function theFollowingExtraParametersConfigured(TableNode $table)
+    {
+        foreach ($table->getRowsHash() as $parameterName => $parameterValue) {
+            $this->config->addExtraParameter($parameterName, $parameterValue);
+        }
     }
 
     /**
@@ -32,7 +65,7 @@ class ApplicationContext implements Context
      */
     public function theFollowingShortPickedItems(PyStringNode $string)
     {
-        $this->testApplicationProxy->shortPickItems($this->decodeJson($string->getRaw()));
+        $this->applicationProxy()->shortPickItems($this->decodeJson($string->getRaw()));
     }
 
     /**
@@ -40,7 +73,7 @@ class ApplicationContext implements Context
      */
     public function iCreateTheFollowingParcel(PyStringNode $string)
     {
-        $this->testApplicationProxy->createParcel($this->decodeJson($string->getRaw(), true));
+        $this->applicationProxy()->createParcel($this->decodeJson($string->getRaw(), true));
     }
 
     /**
@@ -49,8 +82,8 @@ class ApplicationContext implements Context
     public function itShouldBeSuccessful()
     {
         Assert::true(
-            $this->testApplicationProxy->isLastResponseSuccessful(),
-            $this->testApplicationProxy->getLastResponse()->getErrorMessage()
+            $this->applicationProxy()->isLastResponseSuccessful(),
+            $this->applicationProxy()->getLastResponse()->getErrorMessage()
         );
     }
 
@@ -60,8 +93,23 @@ class ApplicationContext implements Context
     public function theFollowingRequestShouldBeSentToOneStock(PyStringNode $node)
     {
         Assert::eq($this->decodeJson(
-            $this->testApplicationProxy->getLastResponse()->request()->getBody()->__toString()
+            $this->applicationProxy()->getLastResponse()->request()->getBody()->__toString()
         ), $this->decodeJson($node->getRaw()));
+    }
+
+    /**
+     * @Then the API request should have the headers set:
+     */
+    public function theApiRequestShouldHaveTheHeadersSet(TableNode $table)
+    {
+        $headerNames = array_keys($this->tracebleHttpClient->getLastRequest()->getHeaders());
+        foreach ($table ->getRowsHash() as $headerName) {
+            Assert::inArray(
+                $headerName,
+                $headerNames,
+                sprintf('Expected to have a HTTP header "%s".', $headerName)
+            );
+        }
     }
 
     private function decodeJson(string $json)
@@ -77,4 +125,14 @@ class ApplicationContext implements Context
         return $decoded;
 
     }
+
+    private function applicationProxy(): TestApplicationProxy
+    {
+        if (null === $this->testApplicationProxy) {
+            $this->testApplicationProxy = new TestApplicationProxy($this->config, $this->tracebleHttpClient);
+        }
+
+        return $this->testApplicationProxy;
+    }
+
 }

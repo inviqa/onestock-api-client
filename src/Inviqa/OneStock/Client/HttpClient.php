@@ -19,7 +19,7 @@ class HttpClient implements ApiClient
      */
     private $serializer;
 
-    public function __construct(ClientInterface $client, array $authentication, SerializerInterface $serializer)
+    public function __construct(ClientInterface $client, HttpAuthentication $authentication, SerializerInterface $serializer)
     {
         $this->client = $client;
         $this->authentication = $authentication;
@@ -55,8 +55,8 @@ class HttpClient implements ApiClient
     private function buildHeaders(): array
     {
         return [
-            'Auth-User' => $this->authentication['username'],
-            'Auth-Password' => $this->authentication['password'],
+            $this->authentication->getUsernameHeader() => $this->authentication->getUsername(),
+            $this->authentication->getPasswordHeader() => $this->authentication->getPassword(),
         ];
     }
 
